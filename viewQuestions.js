@@ -22,10 +22,8 @@ var con = mysql.createConnection({
 
 app.get('/difficultyLevel', function(req, res) {
 
-
-                    console.log("Connected!");
-
-                    //fetch difficulty level ID from database
+        console.log("Connected!");
+        //fetch difficulty level ID from database
         var sql1 = 'select * from difficultyLevel';
         con.query(sql1,function (err, result) {
                               if (err) throw err;
