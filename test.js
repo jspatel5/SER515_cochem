@@ -41,9 +41,6 @@ app.get('/', function(req, res) {
 
 });
 
-
-
-//app.post('/addForm', urlencodedParser, function (req, res){
 app.post('/addForm', upload.single('filetoupload'),function (req, res){
 
 console.log(req.file); // JSON Object
