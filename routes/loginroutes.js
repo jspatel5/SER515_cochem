@@ -17,9 +17,9 @@ exports.register = function(req,res){
   // console.log("req",req.body);
   var today = new Date();
   var users={
-    "userName":req.body.user_name,
-    "firstName":req.body.first_name,
-    "lastName":req.body.last_name,
+    "userName":req.body.userName,
+    "firstName":req.body.firstName,
+    "lastName":req.body.lastName,
     "email":req.body.email,
     "password":req.body.password,
     "userType":"User",
@@ -45,9 +45,9 @@ exports.register = function(req,res){
 }
 
 exports.login = function(req,res){
-  var userName= req.body.user_name;
+  var userName= req.body.userName;
   var password = req.body.password;
-  connection.query('SELECT * FROM user WHERE userName = ?',[user_name], function (error, results, fields) {
+  connection.query('SELECT * FROM user WHERE userName = ?',[userName], function (error, results, fields) {
   if (error) {
     // console.log("error ocurred",error);
     res.send({
