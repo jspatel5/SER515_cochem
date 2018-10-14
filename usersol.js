@@ -52,7 +52,6 @@ app.post('/getSolution',function (req, res){
 
                      console.log("Connected!");
 
-                     //console.log(req.body);
                      var questionID=req.body.questionID;
                      
                      console.log(questionID);
