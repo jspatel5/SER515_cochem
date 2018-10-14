@@ -50,46 +50,24 @@ app.post('/getSolution',function (req, res){
 
 
 
-//connection.connect(function(err) {
-
-
-                     //if (err) throw err;
-
-
-
                      console.log("Connected!");
 
                      //console.log(req.body);
                      var questionID=req.body.questionID;
-                     //var questionID=77;
+                     
                      console.log(questionID);
                     
 
-                      //var solpath = connection.query('SELECT solutionPath from questions WHERE questionID = ?',[questionID], function (err, result) {
-                      //console.log(solpath);
+                      
                       
                       var solpath;
                       connection.query('SELECT solutionPath from questions WHERE questionID = ?',[questionID], function (err, rows) {
     
                        if (err) throw err;
-                       
-
-                       /*else{
-                        setValue(rows)
-                       }
-
-                       function setValue(value)
-                       {
-                        solpath=value;
-                        console.log(solpath);
-                       }*/
+                      
                        console.log(rows[0].solutionPath);
-
-                       console.log("hello");
                        var tempFile = rows[0].solutionPath;
-                       
-
-                       //var tempFile = JSON.stringify(rows);
+                  
                        
                        console.log(tempFile);
                        fs.readFile(tempFile, function (err,data){
