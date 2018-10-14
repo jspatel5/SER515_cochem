@@ -17,7 +17,7 @@ connection.connect(function(err) {
       if (err) throw err;
       console.log("Connected!");
     });
-
+    //connection to the server
     var server = app.listen(9093, function () {
     var host = server.address().address
     var port = server.address().port
