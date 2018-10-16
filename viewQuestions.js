@@ -110,52 +110,54 @@ app.get('/viewQuestions', urlencodedParser, function (req, res){
 
        });
   
-  app.get('/viewProblemStatement', urlencodedParser, function (req, res){
+app.get('/viewProblemStatement', urlencodedParser, function (req, res){
 
-              //var id= req.query.difficultyLevel;
-              var id= req.query.QuestionId;
+        //var id= req.query.difficultyLevel;
+        var id= 1;
 
-              console.log("Connected!");
-              sql2 = "SELECT * FROM question where questionId = " + id; ;
-              con.query(sql2,function(err,result){
-                                if (err) throw err;
-                                console.log(result);
-              res.write('<head>');
-              //<!-- Required meta tags -->
-              res.write('<meta charset="utf-8">');
-              res.write('<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">');
-              //<!-- Bootstrap CSS -->
-              res.write('<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">');
-              res.write('<title>QUESTIONS</title>');
-              res.write('</head>');
-              res.write('<table class="table table-striped">');
-              res.write('<thead>');
-              res.write('<tr>');
-              res.write('<th scope="col">Question</th>');
-              res.write('<th scope="col">Difficulty Level</th>');
-              res.write('</tr>');
-              res.write('</thead>');
-              res.write('<tbody>');
-              //Object.keys(result).forEach(function(key) {
-                                    var row = result[key];
-                                    console.log(row.questionStatement);
-                                    console.log(row.difficultyLevel);
-                                    res.write('<tr>');
-                                    var data1 = '<td>'+row.questionStatement+'</td>';
-                                    var data2 = '<td>'+row.difficultyLevel+'</td>';
-                                    console.log(data1);
-                                    console.log(data2);
-                                    res.write(data1);
-                                    res.write(data2);
-                                    res.write('</tr>');
-                                    // });
-              res.write('</tbody>');
-              res.write('</table>');
-              res.write('</body>');
-              res.write('</html>');
-              res.end();
+        console.log("Connected!");
+        sql2 = "SELECT * FROM questions WHERE questionID=" + id ;
+        con.query(sql2,function(err,result){
+                          if (err) throw err;
+                          console.log(result);
+        res.write('<head>');
+        //<!-- Required meta tags -->
+        res.write('<meta charset="utf-8">');
+        res.write('<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">');
+        //<!-- Bootstrap CSS -->
+        res.write('<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">');
+        res.write('<title>QUESTIONS</title>');
+        res.write('</head>');
+        res.write('<table class="table table-striped">');
+        res.write('<thead>');
+        res.write('<tr>');
+        res.write('<th scope="col">Question</th>');
+        res.write('<th scope="col">Difficulty Level</th>');
+        res.write('</tr>');
+        res.write('</thead>');
+        res.write('<tbody>');
+        Object.keys(result).forEach(function(key) {
+                              var row = result[key];
+                              console.log(row.questionStatement);
+                              console.log(row.difficultyLevel);
+                              res.write('<tr>');
+                              var data1 = '<td>'+row.questionStatement+'</td>';
+                              var data2 = '<td>'+row.difficultyLevel+'</td>';
+                              console.log(data1);
+                              console.log(data2);
+                              res.write(data1);
+                              res.write(data2);
+                              res.write('</tr>');
+                               });
+        res.write('</tbody>');
+        res.write('</table>');
+        res.write('<label>Answer: </label>');
+        res.write('<input type = "text" id = "answer" value = "" />');
+        res.write('</body>');
+        res.write('</html>');
+        res.end();
 
-             });
+       });
 
 
 
