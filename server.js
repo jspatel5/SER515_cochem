@@ -19,8 +19,13 @@ router.get('/login', function(req, res) {
 	res.sendFile('login.html', {root: __dirname });
    // res.json({ message: 'welcome to our upload module apis' });
 });
+router.get('/forgotPassword', function(req, res) {
+	res.sendFile('forgotPassword.html', {root: __dirname });
+   // res.json({ message: 'welcome to our upload module apis' });
+});
 //route to handle user registration
 router.post('/register',login.register);
-router.post('/login',login.login)
+router.post('/login',login.login);
+router.post('/forgotPassword',login.forgotPassword);
 app.use('/api', router);
 app.listen(8080);
