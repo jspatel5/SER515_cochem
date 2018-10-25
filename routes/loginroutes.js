@@ -11,9 +11,9 @@ var connection = mysql.createConnection({
 app.use(express.static(__dirname + '/'));
 connection.connect(function(err){
 if(!err) {
-    console.log("Database is connected ... nn");
+    console.log("Database is connected ... ");
 } else {
-    console.log("Error connecting database ... nn");
+    console.log("Error connecting database ... ");
 }
 });
 
@@ -51,6 +51,8 @@ exports.register = function(req,res){
 exports.login = function(req,res){
   var userName= req.body.userName;
   var password = req.body.password;
+  var updatePointsQuery = "";
+  var points = "";
   connection.query('SELECT * FROM user WHERE userName = ?',[userName], function (error, results, fields) {
   if (error) {
     // console.log("error ocurred",error);
@@ -62,10 +64,19 @@ exports.login = function(req,res){
     // console.log('The solution is: ', results);
     if(results.length >0){
       if(results[0].password == password){
-        res.send({
+      	points = results[0].points;
+       updatePointsQuery = "UPDATE user SET points = ? WHERE userName = ?"
+      
+		  	
+		  	connection.query(updatePointsQuery,[points+10,userName], function (err, result) {
+		  if (err) throw err;
+		    console.log(result.affectedRows + " record(s) updated");
+		  });
+		
+       res.send({
           "code":200,
           "success":"login sucessfull"
-            });
+          });
       // send to user profile page
       }
       else{
@@ -73,7 +84,7 @@ exports.login = function(req,res){
           "code":204,
           "success":"Username and password does not match"
             });
-         res.sendFile(path.join(__dirname,'../','login.html'));
+         //res.sendFile(path.join(__dirname,'../','login.html'));
       }
     }
     else{
@@ -86,6 +97,50 @@ exports.login = function(req,res){
     }
   }
   });
+
+}
+exports.forgotPassword = function(req,res){
+	var userName= req.body.userName;
+	var firstName= req.body.firstName;
+	var lastName= req.body.lastName;
+	var email= req.body.email;
+
+	connection.query('SELECT * FROM user WHERE userName = ?',[userName], function (error, results, fields) {
+  if (error) {
+    // console.log("error ocurred",error);
+    res.send({
+      "code":400,
+      "failed":"error ocurred"
+    })
+  }else{
+    // console.log('The solution is: ', results);
+    if(results.length >0){
+      if(results[0].firstName == firstName && results[0].lastName == lastName && results[0].email == email){
+        res.send({
+          "code":200,
+          "password":results[0].password
+            });
+      // send to user profile page
+      }
+      else{
+        res.send({
+          "code":204,
+          "success":" given parameters does not match with your profile."
+            });
+         //res.sendFile(path.join(__dirname,'../','login.html'));
+      }
+    }
+    else{
+      res.send({
+     "code":204,
+        "success":"Username does not exits"
+          });
+      //res.send('/api/login');
+      //sendFile(__dirname+"/"+"login.html");
+    }
+  }
+  });
+
 }
 
 
