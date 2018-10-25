@@ -31,6 +31,7 @@ router.get('/forgotPassword', function(req, res) {
 //route to handle user registration
 router.post('/register',login.register);
 router.post('/login',login.login);
-//router.post('/forgotPassword',login.forgotPassword);
+router.post('/forgotPassword',login.forgotPassword);
+
 app.use('/api', router);
 app.listen(8080);
