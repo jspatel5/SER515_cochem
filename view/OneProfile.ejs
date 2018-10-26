@@ -1,0 +1,22 @@
+<% include header.ejs %>
+<div class="container">
+    <% if (message) { %>
+        <p class="text-center text-danger"><%= message %></p>
+    <% } %>
+
+    <% if (user) { %>
+
+                <h1 class="text-center"> <%= user.First_Name %> <%= user.Last_Name %>  </h1>
+                <p class="text-center"> <br> <%= user.email %> </p>
+                <p class="text-center"> <br> Points Gained : <%= user.points %></p>
+                <p class="text-center"> User_Name : <%= user.user_name %></p>
+                
+             <a class="float-right" href="/back" title="Back">Back</a>
+           
+    <% } else { %>
+        <p class="text-center">user Not Found. Go <a href="/add">here</a> to add users.</p>
+    <% } %>
+</div>
+</div>
+</body>
+</html>
