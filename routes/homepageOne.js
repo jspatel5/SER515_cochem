@@ -7,7 +7,7 @@ module.exports = {
             if (err) {
                 res.redirect('/');
             }
-            res.render('headermain.ejs', {
+            res.render('headmain.ejs', {
                 title: "Welcome to Euler Project | Edit User Profile"
         ,users: result
             });
