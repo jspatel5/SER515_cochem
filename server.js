@@ -2,6 +2,7 @@ var express    = require("express");
 var login = require('./routes/loginroutes');
 var solution = require('./routes/usersolroutes');
 var addQue = require('./routes/addQuestions');
+var requestSol = require('./routes/checkPointsForSolution')
 var bodyParser = require('body-parser');
 var path = require("path");
 var app = express();
@@ -22,36 +23,38 @@ app.use(function(req, res, next) {
 });
 var router = express.Router();
 
-// test route
+
 router.get('/register', function(req, res) {
-	//res.sendFile('registration.html', {root: __dirname });
-	//console.log(__dirname +'/view'+ '/registration.html');
-	res.sendFile(path.join(__dirname,'/view', '/registration.html'));
-	
-   // res.json({ message: 'welcome to our upload module apis' });
+	res.sendFile(path.join(__dirname,'/view', '/registration.html'));   
 });
+
 router.get('/login', function(req, res) {
 	res.sendFile(path.join(__dirname,'/view', '/login.html'));
-   // res.json({ message: 'welcome to our upload module apis' });
+   
 });
 router.get('/forgotPassword', function(req, res) {
 	res.sendFile(path.join(__dirname,'/view', '/forgotPassword.html'));
-   // res.json({ message: 'welcome to our upload module apis' });
+   
 });
 
 router.get('/userview', function(req, res) {
 	res.sendFile(path.join(__dirname,'/view', '/userview.html'));
-   // res.json({ message: 'welcome to our upload module apis' });
+   
 });
 
 router.get('/seesolution', function(req, res) {
 	res.sendFile(path.join(__dirname,'/view', '/seesolution.html'));
-   // res.json({ message: 'welcome to our upload module apis' });
+   
 });
 
 router.get('/index', function(req, res) {
     res.sendFile(path.join(__dirname,'/view', '/index.html'));
-   // res.json({ message: 'welcome to our upload module apis' });
+   
+});
+
+router.get('/requestSolution', function(req, res) {
+    res.sendFile(path.join(__dirname,'/view', '/requestSolution.html'));
+   
 });
 
 var con = mysql.createConnection({
@@ -132,6 +135,7 @@ router.post('/forgotPassword',login.forgotPassword);
 router.post('/userview',solution.usersol);
 router.post('/seesolution', upload.single('filetoupload'), solution.seesolution);
 router.post('/addQuestion',addQue.addQuestion);
+router.post('/requestSolution',requestSol.requestSolution);
 
 app.use('/api', router);
 app.listen(8080);
