@@ -13,7 +13,7 @@ connection.connect(function(err){
 if(!err) {
     console.log("Database is connected ... ");
 } else {
-    console.log("Error connecting database ... ");
+    console.log("Error connecting database in login routes... ");
 }
 });
 

@@ -19,9 +19,9 @@ var connection = mysql.createConnection({
 app.use(express.static(__dirname + '/'));
 connection.connect(function(err){
 if(!err) {
-    console.log("Database is connected ... nn");
+    console.log("Database is connected ... ");
 } else {
-    console.log("Error connecting database ... nn");
+    console.log("Error connecting database in user solution ... ");
 }
 });
 
