@@ -4,8 +4,8 @@ var mysql = require('mysql');
 var router = express.Router();
 var connection = mysql.createConnection({
 		host: "localhost",
-                user: "root",
-                password: "Janice@2810",
+                user: "jinal",
+                password: "jinal",
                 database: "ProjectEuler" 
 });
 app.use(express.static(__dirname + '/'));
