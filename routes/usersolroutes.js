@@ -109,9 +109,10 @@ async.each(filesArray,function(file,eachcallback){
                        //connection.query(sql1,[solutionname], function (err, result) {
 
                        connection.query('UPDATE Questions SET solutionPath = ? WHERE questionID = ?',[solutionname,questionID], function (err, result) {
-                       if (err) throw err;
+                       if (err) {throw err; res.send("Fail");}
 
                        console.log("1 row inserted.");
+                           res.send("Success");
 
                        });
                      
