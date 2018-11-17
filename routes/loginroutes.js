@@ -3,10 +3,10 @@ var app = express();
 var mysql = require('mysql');
 var router = express.Router();
 var connection = mysql.createConnection({
-		host: "localhost",
-                user: "jinal",
-                password: "jinal",
-                database: "ProjectEuler" 
+	host: "localhost",
+	user: "root",
+	password: "",
+	database: "EulerProject" 
 });
 app.use(express.static(__dirname + '/'));
 connection.connect(function(err){
@@ -66,13 +66,13 @@ exports.login = function(req,res){
       if(results[0].password == password){
       	points = results[0].points;
        updatePointsQuery = "UPDATE user SET points = ? WHERE userName = ?"
-      
-		  	
+
+
 		  	connection.query(updatePointsQuery,[points+10,userName], function (err, result) {
 		  if (err) throw err;
 		    console.log(result.affectedRows + " record(s) updated");
 		  });
-		
+
        res.send({
           "code":200,
           "success":"login sucessfull"
@@ -142,5 +142,3 @@ exports.forgotPassword = function(req,res){
   });
 
 }
-
-

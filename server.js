@@ -2,6 +2,8 @@ var express    = require("express");
 var login = require('./routes/loginroutes');
 var solution = require('./routes/usersolroutes');
 var addQue = require('./routes/addQuestions');
+var index = require('./routes/index')
+var questions = require('./routes/questions')
 var requestSol = require('./routes/checkPointsForSolution')
 var bodyParser = require('body-parser');
 var path = require("path");
@@ -25,43 +27,43 @@ var router = express.Router();
 
 
 router.get('/register', function(req, res) {
-	res.sendFile(path.join(__dirname,'/view', '/registration.html'));
+	res.sendFile(path.join(__dirname,'/views', '/registration.html'));
 });
 
 router.get('/login', function(req, res) {
-	res.sendFile(path.join(__dirname,'/view', '/login.html'));
+	res.sendFile(path.join(__dirname,'/views', '/login.html'));
 
 });
 router.get('/forgotPassword', function(req, res) {
-	res.sendFile(path.join(__dirname,'/view', '/forgotPassword.html'));
+	res.sendFile(path.join(__dirname,'/views', '/forgotPassword.html'));
 
 });
 
 router.get('/userview', function(req, res) {
-	res.sendFile(path.join(__dirname,'/view', '/userview.html'));
+	res.sendFile(path.join(__dirname,'/views', '/userview.html'));
 
 });
 
 router.get('/seesolution', function(req, res) {
-	res.sendFile(path.join(__dirname,'/view', '/seesolution.html'));
+	res.sendFile(path.join(__dirname,'/views', '/seesolution.html'));
 
 });
 
 router.get('/index', function(req, res) {
-    res.sendFile(path.join(__dirname,'/view', '/index.html'));
+    res.sendFile(path.join(__dirname,'/views', '/index.html'));
 
 });
 
 router.get('/requestSolution', function(req, res) {
-    res.sendFile(path.join(__dirname,'/view', '/requestSolution.html'));
+    res.sendFile(path.join(__dirname,'/views', '/requestSolution.html'));
 
 });
 
 var con = mysql.createConnection({
-                host: "localhost",
-                        user: "jinal",
-                        password: "jinal",
-                        database: "ProjectEuler"
+host: "localhost",
+user: "root",
+password: "",
+database: "EulerProject"
                 });
 
 router.get('/addQuestion', function(req, res) {
@@ -252,4 +254,10 @@ router.post('/addQuestion',addQue.addQuestion);
 router.post('/requestSolution',requestSol.requestSolution);
 
 app.use('/api', router);
+
+app.set('view engine', 'ejs');
+
+app.use('/', index)
+app.use('/questions', questions)
+
 app.listen(8080);

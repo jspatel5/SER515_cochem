@@ -1,0 +1,36 @@
+
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+<table width='80%' border=0>
+
+	<tr style='text-align:left; background-color:#CCC'>
+    <th>Questions</th>
+		<th>difficulty Level</th>
+		<!-- <th>Age</th>
+		<th>Email</th>
+		<th>Action</th> -->
+	</tr>
+
+	<% if (data) { %>
+	<% data.forEach(function(question){ %>
+		<tr>
+      <td><%= question.questionStatement %></td>
+			<td><%= question.difficultyLevel %></td>
+			<td>
+				<div style="float:left">
+					<a href='/questions/problemStatement/<%= question.questionID %>'>View</a> &nbsp;
+					<!-- <form method="post" action="/users/delete/<%= question.difficultyLevelID %>" style="float:right">
+						<input type="submit" name="delete" value='Delete' onClick="return confirm('Are you sure you want to delete?')" /> -->
+						<!-- <input type="hidden" name="_method" value="DELETE" />
+					</form> --> -->
+				</div>
+			</td>
+		</tr>
+	<% }) %>
+	<% } %>
+
+</table>
