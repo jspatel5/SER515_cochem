@@ -17,6 +17,25 @@ if(!err) {
 }
 });
 
+exports.loadDiffifcultyLevel = function(req,res){
+
+		var sql1 = 'select * from difficultyLevel';
+		
+            connection.query(sql1,function (err, result) {
+                 if (err) throw err;
+                 console.log("Sql result : ");
+                     console.log(result);
+                     console.log("---------");
+                     var filePath = process.cwd()+'/view/'+'addQuestion.ejs'
+			         res.render(filePath, {
+				        difficultyLevel_map : result
+			    	});
+
+         });
+         
+}
+
+
 exports.addQuestion = function(req,res){
   
 
