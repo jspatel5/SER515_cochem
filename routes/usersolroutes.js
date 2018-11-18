@@ -57,7 +57,7 @@ exports.usersol = function(req,res){
 exports.seesolution = function(req,res){
 console.log(req.file);
 
-var solutionname = "/Users/janiceabraham/Desktop/test"+req.file.originalname;
+var solutionname = req.file.originalname;
 var filesArray = req.file;
 var questionID=req.body.questionID
 
@@ -75,8 +75,8 @@ async.each(filesArray,function(file,eachcallback){
             });
         },
         function (data, callback) {
-          var writepath = "/Users/janiceabraham/Desktop/test";
-          fs.writeFile(writepath + req.file.originalname, data, (err) => {
+         
+          fs.writeFile(req.file.originalname, data, (err) => {
           if (err) {
             console.log("error occured", err);
           }
