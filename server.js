@@ -36,20 +36,20 @@ router.get('/forgotPassword', function(req, res) {
    // res.json({ message: 'welcome to our upload module apis' });
 });
 
-router.get('/userview', function(req, res) {
-	res.sendFile(path.join(__dirname,'/view', '/userview.html'));
+router.get('/ViewSolution', function(req, res) {
+	res.sendFile(path.join(__dirname,'/view', '/ViewSolution.html'));
    // res.json({ message: 'welcome to our upload module apis' });
 });
 
-router.get('/seesolution', function(req, res) {
-	res.sendFile(path.join(__dirname,'/view', '/seesolution.html'));
+router.get('/AddSolution', function(req, res) {
+	res.sendFile(path.join(__dirname,'/view', '/AddSolution.html'));
    // res.json({ message: 'welcome to our upload module apis' });
 });
 //route to handle user registration
 router.post('/register',login.register);
 router.post('/login',login.login);
-router.post('/userview',solution.usersol);
-router.post('/seesolution', upload.single('filetoupload'), solution.seesolution);
+router.post('/ViewSolution',solution.usersol);
+router.post('/AddSolution', upload.single('filetoupload'), solution.seesolution);
 //router.post('/forgotPassword',login.forgotPassword);
 app.use('/api', router);
 app.listen(8080);
