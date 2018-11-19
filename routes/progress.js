@@ -17,7 +17,7 @@ if(!err) {
 }
 });
 
-app.get('/', function(req, res, next) {
+app.get('/progress', function(req, res, next) {
 
 	// req.getConnection(function(error, conn) {
 
