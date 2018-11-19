@@ -44,10 +44,12 @@ app.get('/', function(req, res, next) {
 
 
 app.get('/questionlist/(:id)', function(req, res, next){
-	// req.getConnection(function(error, conn) {
 		var id=req.params.id;
-		connection.query('SELECT * FROM questions a, difficultyLevel b WHERE a.difficultyLevel = b.difficultyLevelID and a.difficultyLevel=' + id , function(err, rows, fields) {
+		// connection.query('select * from questions LEFT OUTER JOIN difficultyLevel on questions.difficultyLevel = difficultyLevel.difficultyLevelID LEFT OUTER JOIN userQuestion on questions.questionID = userQuestion.questionID where questions.difficultyLevel =' + id , function(err, rows, fields) {
+// select * from questions Left outer JOIN difficultyLevel on questions.difficultyLevel = difficultyLevel.difficultyLevelID Left outer join userQuestion on questions.questionID = userQuestion.questionID and userQuestion.userID= 1 where questions.difficultyLevel =2
+			connection.query('select * from questions Left JOIN difficultyLevel on questions.difficultyLevel = difficultyLevel.difficultyLevelID Left join userQuestion on questions.questionID = userQuestion.qID and userQuestion.userID = 1 where questions.difficultyLevel =' + id , function(err, rows, fields) {
 
+			console.log(rows);
 			if (err) {
 				req.flash('error', err)
 				var filePath = process.cwd()+'/view/question/'+'questions.ejs'
@@ -151,18 +153,16 @@ app.post('/checkanswer/(:id)',function(req,res){
 						 }
 			// send to question profile page
 			});
-			        res.send({
-
-			          "code":200,
-			          "success":"correct answer"
-
-					});
+			var filePath = process.cwd()+'/view/'+'index.ejs'
+									 res.render(filePath, {
+										title : 'correct answer'
+								});
 				}
 			      else{
-			        res.send({
-			          "code":204,
-			          "success":"incorrect answer"
-			            });
+							var filePath = process.cwd()+'/view/'+'index.ejs'
+													 res.render(filePath, {
+														title : 'incorrect answer'
+												});
 			         //res.sendFile(path.join(__dirname,'../','views/question/answercheck'));
 			      }
 			    }
@@ -173,7 +173,8 @@ app.post('/checkanswer/(:id)',function(req,res){
 
 		app.get('/progress', function(req, res, next) {
 
-		    connection.query('select * from questions LEFT JOIN userQuestion on questions.questionID = userQuestion.questionID AND userQuestion.userID = 1',function(err,rows,fields){
+		    connection.query('select * from questions LEFT JOIN userQuestion on questions.questionID = userQuestion.qID AND userQuestion.userID = 1',function(err,rows,fields){
+								console.log(rows);
 					if (err) {
 						req.flash('error', err)
 						var filePath = process.cwd()+'/view/'+'displayProgressGrid.ejs'

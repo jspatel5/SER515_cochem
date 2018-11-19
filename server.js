@@ -30,5 +30,7 @@ app.set('view engine', 'ejs');
 
 app.use('/', index);
 app.use('/questions', questions);
+app.use('/login',login);
+app.use('/addQue',addQue);
 
 app.listen(8080);

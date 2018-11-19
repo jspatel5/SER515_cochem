@@ -6,7 +6,7 @@ var connection = mysql.createConnection({
 	host: "localhost",
 	user: "root",
 	password: "",
-	database: "EulerProject" 
+	database: "EulerProject"
 });
 app.use(express.static(__dirname + '/'));
 connection.connect(function(err){
@@ -17,8 +17,31 @@ if(!err) {
 }
 });
 
-exports.addQuestion = function(req,res){
+app.get('/index', function(req, res, next) {
+  var filePath = process.cwd()+'/view/'+'index.html';
+  res.sendFile(filePath);
+})
 
+app.get('/', function(req, res, next) {
+
+		var sql1 = 'select * from difficultyLevel';
+
+            connection.query(sql1,function (err, result) {
+                 if (err) throw err;
+                 console.log("Sql result : ");
+                     console.log(result);
+                     console.log("---------");
+                     var filePath = process.cwd()+'/view/'+'addQuestion.ejs'
+			         res.render(filePath, {
+				        difficultyLevel_map : result
+			    	});
+
+         });
+
+})
+
+
+app.post('/addQuestion',function(req,res){
 
   var difficultyLevelID = req.body.difficultyLevel;
   var questionStatement = req.body.questionStatement;
@@ -41,11 +64,13 @@ exports.addQuestion = function(req,res){
 
     console.log("1 row inserted.");
     //process.chdir("../");
-    var filePath = process.cwd()+'/views/'+'addQuestionSuccess.html'
+    var filePath = process.cwd()+'/view/'+'addQuestionSuccess.html'
     //console.log(filePath);
     res.sendFile(filePath);
     //res.sendFile('addQuestionSuccess.html', {root: __dirname });
 
   }
   });
-}
+})
+
+module.exports = app
