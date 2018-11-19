@@ -1,8 +1,8 @@
 const fs = require('fs');
 module.exports = {
 editProfile: (req, res) => {
-        let userId = req.params.id;
-        let query = "SELECT * FROM `users` WHERE id = '1' ";
+        let userId = req.params.userId;
+        let query = "SELECT * FROM `projecteuler` WHERE userId = '1' ";
         db.query(query, (err, result) => {
             if (err) {
                 return res.status(500).send(err);

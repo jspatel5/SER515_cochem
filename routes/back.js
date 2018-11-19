@@ -1,5 +1,5 @@
 module.exports = {
-    getHomePage: (req, res) => {
+    goBack: (req, res) => {
         let query = "SELECT * FROM `projecteuler` ORDER BY userId ASC"; // query database to get all the players
 
         // execute query
@@ -9,7 +9,7 @@ module.exports = {
             }
             res.render('headmain.ejs', {
                 title: "Welcome to Euler Project | Edit User Profile"
-        ,projecteuler:result
+        ,projecteuler: result
             });
         });
     },

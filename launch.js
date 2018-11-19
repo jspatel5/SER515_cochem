@@ -17,7 +17,7 @@ const db = mysql.createConnection ({
     host: 'localhost',
     user: 'root',
     password: 'Munnym22_7',
-    database: 'profiles'
+    database: 'projecteuler'
 });
 
 // connect to database
@@ -31,7 +31,7 @@ global.db = db;
 
 // configure middleware
 app.set('port', process.env.port || port); // set express to use this port
-app.set('views', __dirname + '/views'); // set express to look in this folder to render our view
+app.set('views', __dirname + '/view'); // set express to look in this folder to render our view
 app.set('view engine', 'ejs'); // configure template engine
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json()); // parse form data client

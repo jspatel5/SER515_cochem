@@ -13,6 +13,12 @@ var upload = multer({ dest: 'uploads/' });
 var router = express.Router();
 var async = require('async');
 var mysql = require('mysql');
+const fileUpload = require('express-fileupload');
+
+const {getHomePage} = require('./routes/homepage');
+const {editProfile} = require('./routes/display');
+const {goBack} = require('./routes/return');
+const {singleProfile} = require('./routes/UserProfile');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -57,11 +63,13 @@ router.get('/requestSolution', function(req, res) {
 
 });
 
+
+
 var con = mysql.createConnection({
                 host: "localhost",
-                        user: "jinal",
-                        password: "jinal",
-                        database: "ProjectEuler"
+                        user: " root ",
+                        password: " Munnym22_7",
+                        database: "user_table"
                 });
 
 router.get('/addQuestion', function(req, res) {
@@ -241,6 +249,21 @@ router.get('/displayPoints', function(req,resp){
 
   });
 });
+
+app.set('port', process.env.port || port); // set express to use this port
+app.set('views', __dirname + '/views'); // set express to look in this folder to render our view
+app.set('view engine', 'ejs'); // configure template engine
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json()); // parse form data client
+app.use(express.static(path.join(__dirname, 'public'))); // configure express to use public folder
+app.use(fileUpload()); // configure fileupload
+
+// routes for the app
+app.get('/', getHomePage);
+app.get('/editprofile', editProfile);
+app.get('/back',goBack);
+app.get('/edit/:id',singleProfile)
+
 
 //route to handle user registration
 router.post('/register',login.register);
