@@ -10,10 +10,10 @@ var upload = multer({ dest: 'uploads/' });
 var router = express.Router();
 var async = require('async');
 var connection = mysql.createConnection({
-    host: "localhost",
-                user: "jinal",
-                password: "jinal",
-                database: "ProjectEuler" 
+  host: "localhost",
+	user: "root",
+	password: "",
+	database: "EulerProject"
 });
 
 app.use(express.static(__dirname + '/'));
@@ -28,27 +28,27 @@ if(!err) {
 
 
 exports.usersol = function(req,res){
-                     
+
                      var questionID=req.body.questionID;
-                     
+
                       var solpath;
                       connection.query('SELECT solutionPath from Questions WHERE questionID = ?',[questionID], function (err, rows) {
-    
+
                        if (err) throw err;
-                       
+
                        var tempFile = rows[0].solutionPath;
-                       
+
                        fs.readFile(tempFile, function (err,data){
                        res.contentType("application/pdf");
                        res.send(data);
-                    
-                
+
+
 });
                        });
 
-                       
 
-                            
+
+
 
          //});
 
@@ -96,7 +96,7 @@ async.each(filesArray,function(file,eachcallback){
           }
           else{
             console.log("finished prcessing");
-        
+
           }
           });
 
@@ -104,7 +104,7 @@ async.each(filesArray,function(file,eachcallback){
 
                        //var sql1 = 'INSERT INTO `questions` (`questionID`,`solutionPath`) VALUES (?,?)';
                        var sq1 = "UPDATE Questions SET solutionPath='?' WHERE questionID='questionID'";
-                       
+
 
                        //connection.query(sql1,[solutionname], function (err, result) {
 
@@ -114,11 +114,10 @@ async.each(filesArray,function(file,eachcallback){
                        console.log("1 row inserted.");
 
                        });
-                     
 
-                            
 
-         
+
+
+
 
 }
-
