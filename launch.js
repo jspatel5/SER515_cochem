@@ -8,6 +8,9 @@ const app = express();
 const {getHomePage} = require('./routes/homepageOne');
 const {editProfile} = require('./routes/OneProfile');
 const {goBack} = require('./routes/back');
+const {leaderBoard} = require('./routes/display');
+const {singleProfile} = require('./routes/UserProfile');
+//const {editProfile} = require('./routes/OneProfile');
 
 const port = 8080;
 
@@ -43,7 +46,10 @@ app.use(fileUpload()); // configure fileupload
 
 app.get('/', getHomePage);
 app.get('/editprofile', editProfile);
-app.get('/back',goBack);
+app.get('/back', goBack);
+app.get('/leaderboard', leaderBoard)
+app.get('/edit/:userId',singleProfile)
+app.get('/return', getHomePage);
 
 //app.get('/edit/:id', editUserPage);
 //app.post('/edit/:id', editUser);

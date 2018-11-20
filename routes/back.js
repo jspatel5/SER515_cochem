@@ -7,9 +7,9 @@ module.exports = {
             if (err) {
                 res.redirect('/');
             }
-            res.render('headmain.ejs', {
+            res.render('AllUsers.ejs', {
                 title: "Welcome to Euler Project | Edit User Profile"
-        ,projecteuler: result
+        ,users: result
             });
         });
     },
