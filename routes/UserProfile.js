@@ -10,6 +10,7 @@ singleProfile: (req, res) => {
             res.render('UserProfile.ejs', {
                 title: "Display User"
                 ,users: result[0]
+                ,ID: Id
                 ,message: ''
             });
         });

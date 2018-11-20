@@ -1,6 +1,6 @@
 module.exports = {
     goBack: (req, res) => {
-        let query = "SELECT * FROM `projecteuler` ORDER BY userId ASC"; // query database to get all the players
+        let query ="SELECT * FROM `projecteuler` ORDER BY points DESC"
 
         // execute query
         db.query(query, (err, result) => {

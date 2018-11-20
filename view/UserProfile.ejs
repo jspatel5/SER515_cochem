@@ -4,15 +4,20 @@
         <p class="text-center text-danger"><%= message %></p>
     <% } %>
 
-    <% if (users) { %>
-
+    <% if (users) { %>       
+            <% if ( ID == '1') { %>
+                    <h1 class="text-center"> <%= users.firstName %> <%= users.lastName %>  </h1>
+                <p class="text-center"> <br> <%= users.email %> </p>
+                <p class="text-center"> <br> Points Gained : <%= users.points %></p>
+                <p class="text-center"> User_Name : <%= users.username %></p>
+                <span class="navbar-brand mb-0 h1" > <a class="float-right" href="https://projecteuler.net/archives" title="Solve Questions">Solve Questions</a></span>
+                <% } else { %>
                 <h1 class="text-center"> <%= users.firstName %> <%= users.lastName %>  </h1>
                 <p class="text-center"> <br> <%= users.email %> </p>
                 <p class="text-center"> <br> Points Gained : <%= users.points %></p>
                 <p class="text-center"> User_Name : <%= users.username %></p>
-                
-             <a class="float-right" href="/back" title="Back">Back</a>
-           
+                <% } %>
+                <a class="float-right" href="/back" title="Back">Back</a>
     <% } else { %>
         <p class="text-center">user Not Found.</p>
         
