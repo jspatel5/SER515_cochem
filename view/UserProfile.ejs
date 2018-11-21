@@ -1,4 +1,17 @@
 <% include headmain.ejs %>
+<head>
+  <style>
+        body {
+            overflow-y: hidden ! important;
+            overflow-x: hidden ! important;
+            background-color: #f8f8f8;
+            background-image: url('background.jpeg');
+            
+            background-size: 100% 100%;
+        }
+        </style>
+</head>
+<body>
 <div class="container">
     <% if (message) { %>
         <p class="text-center text-danger"><%= message %></p>
@@ -24,7 +37,6 @@
         <p class="text-center">user Not Found.</p>
 
     <% } %>
-</div>
 </div>
 </body>
 </html>

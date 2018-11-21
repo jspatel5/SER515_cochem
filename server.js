@@ -6,6 +6,8 @@ var index = require('./routes/index')
 var questions = require('./routes/questions')
 var progress = require('./routes/progress')
 var solution = require('./routes/usersolroutes');
+var getHomePage = require('./routes/mainpage');
+var aboutPage = require('./routes/aboutlink');
 
 
 var back = require('./routes/back');
@@ -37,7 +39,7 @@ var router = express.Router();
 app.set('views', __dirname + '/view');
 app.set('view engine', 'ejs');
 
-app.use('/', index);
+// app.use('/', index);
 app.use('/questions', questions);
 app.use('/login',login);
 app.use('/addQue',addQue);
@@ -48,5 +50,9 @@ app.use('/leaderboard', display);
 app.use('/home',homepageOne);
 app.use('/editprofile', OneProfile);
 app.use('/user', UserProfile);
+
+app.use('/', getHomePage);
+app.use('/about', aboutPage);
+app.use('/exit', getHomePage);
 
 app.listen(8080);

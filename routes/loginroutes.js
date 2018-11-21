@@ -21,20 +21,24 @@ if(!err) {
 app.get('/login', function(req, res, next) {
   var filePath = process.cwd()+'/view/'+'login.ejs';
   res.render(filePath, {
-                response : ""
+                response : "",
+								title: "Login Page"
             });
 })
 
 app.get('/register', function(req, res, next) {
   var filePath = process.cwd()+'/view/'+'registration.ejs';
   res.render(filePath, {
-                response : ""
+                response : "",
+								title: "Login Page"
             });
 })
 
 app.get('/forgotPassword', function(req, res, next) {
-  var filePath = process.cwd()+'/view/'+'forgotPassword.html';
-  res.sendFile(filePath);
+  var filePath = process.cwd()+'/view/'+'forgotPassword.ejs';
+  res.render(filePath,{
+		title : "forgotPassword"
+	});
 })
 
 
@@ -48,7 +52,8 @@ app.post('/register',function(req,res){
 
       	respMessage = "Error occured while processing your request ";
       	res.render(filePath, {
-				        response : respMessage
+				        response : respMessage,
+								title: "Login Page"
 			    	});
 
 	  }else{
@@ -57,7 +62,8 @@ app.post('/register',function(req,res){
 
 	  		console.log(respMessage);
 	  		res.render(filePath, {
-				        response : respMessage
+				        response : respMessage,
+								title: "Login Page"
 			    	});
 
 	  		}else{
@@ -77,7 +83,8 @@ app.post('/register',function(req,res){
 			  if (!req.body.firstName.trim() && !req.body.lastName.trim() && !req.body.password.trim()) {
     				respMessage = " First Name, Last Name, password can not be null"
     				res.render(filePath, {
-				        response : respMessage
+				        response : respMessage,
+								title: "Login Page"
 			    	});
 				}else{
 					connection.query('INSERT INTO users SET ?',users, function (error, results, fields) {
@@ -85,7 +92,8 @@ app.post('/register',function(req,res){
 					    console.log("error ocurred",error);
 					    respMessage = "Error occured while processing your request ";
 					    res.render(filePath, {
-				        response : respMessage
+				        response : respMessage,
+								title: "Login Page"
 			    	});
 
 					  }else{
@@ -93,7 +101,8 @@ app.post('/register',function(req,res){
 					    filePath = process.cwd()+'/view/'+'login.ejs';
 					    respMessage = "user registered sucessfully"
 					    res.render(filePath, {
-				        response : respMessage
+				        response : respMessage,
+								title: "Login Page"
 			    	});
 					  }
 					  });
@@ -122,7 +131,8 @@ app.post('/login',function(req,res){
     var filePath = process.cwd()+'/view/'+'login.ejs'
       	respMessage = "Error occured while processing your request ";
 			         res.render(filePath, {
-				        response : respMessage
+				        response : respMessage,
+								title: "Login Page"
 			    	});
   }else{
     if(results.length >0){
@@ -137,7 +147,7 @@ app.post('/login',function(req,res){
 
       if(results[0].userType == "Admin"){
         var filePath = process.cwd()+'/view/'+'adminProfile.ejs';
-               res.render(filePath, {});
+               res.render(filePath, {title: "Login Page"});
       }else if(results[0].userType == "User"){
 				var filePath = process.cwd()+'/view/'+'OneProfile.ejs'
 										 res.render(filePath, {
@@ -158,7 +168,8 @@ app.post('/login',function(req,res){
       	var filePath = process.cwd()+'/view/'+'login.ejs'
       	respMessage = "Username and password does not match";
 			         res.render(filePath, {
-				        response : respMessage
+				        response : respMessage,
+								title: "Login Page"
 			    	});
       }
     }
@@ -166,7 +177,8 @@ app.post('/login',function(req,res){
     	var filePath = process.cwd()+'/view/'+'login.ejs'
       	respMessage = "Username does not exist";
 			         res.render(filePath, {
-				        response : respMessage
+				        response : respMessage,
+								title: "Login Page"
 			    	});
     }
   }

@@ -1,27 +1,28 @@
+<% include headmain.ejs %>
 <html lang="en">
     <head>
         <!-- Required meta tags -->
         <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-                
+
                 <!-- Bootstrap CSS -->
                 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-                    
-                    <title>Request Solution!</title>
+
+                    <title><%= title %></title>
                     </head>
     <body>
-        
-        
+
+
         <form action='/api/requestSolution'  method='post' name='addForm'>
             <div class="form-group" style="margin-left:250px; margin-right:250px; margin-top:100px">
                 <label for="userName">User Name</label>
                 <input type="text" class="form-control" id="userName" aria-describedby="userName" placeholder="User Name" name="userName">
             </div>
-        
+
             <button type="submit" class="btn btn-primary" style="margin-left:250px; margin-right:250px">Submit</button>
         </form>
-        
-        
-   
+
+
+
     </body>
     </html>

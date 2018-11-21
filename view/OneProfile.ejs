@@ -5,11 +5,6 @@
     <% } %>
 
     <% if (user) { %>
-                <left>
-                <a href="">
-                <img src="https://www.google.com/imgres?imgurl=http%3A%2F%2F2.bp.blogspot.com%2F-AJzdXki63Xc%2FUgI-8JY3uII%2FAAAAAAAACJk%2F85pnDqadUwQ%2Fs1600%2Ffacebook-profile.jpg&imgrefurl=http%3A%2F%2Fwww.facebooknewaccount.net%2F2014%2F02%2Fhow-to-reveal-fake-profile-on-linkedin.html&docid=PvkQj7ZYLpK3vM&tbnid=TjhLmZam37JNtM%3A&vet=10ahUKEwisn-jg5a3eAhVIylQKHaguBnsQMwg_KAAwAA..i&w=1600&h=1008&bih=626&biw=1366&q=facebook%20new%20user%20image&ved=0ahUKEwisn-jg5a3eAhVIylQKHaguBnsQMwg_KAAwAA&iact=mrc&uact=8"  style="width:42px;height:42px;border:0;">
-                </a>
-                </left>
                 <h1 class="text-center"> <%= user.firstName %> <%= user.lastName %>  </h1>
                 <p class="text-center"> <br> <%= user.email %> </p>
                 <p class="text-center"> <br> Points Gained : <%= user.points %></p>
@@ -17,6 +12,8 @@
                 <div class="page-wrapper">
                 <span class="navbar-brand mb-0 h1" > <a class="float-right" href="/questions" title="View Questions">View Questions</a></span>
                 <span class="navbar-brand mb-0 h1" > <a class="float-right" href="/leaderboard" title="View Leader Board">View Leader Board</a></span>
+                <span class="navbar-brand mb-0 h1" > <a class="float-right" href="/questions/progress" title="View Progress">View Progress</a></span>
+
                 </div>
              <a class="float-right" href="/back" title="Refresh">Refresh</a>
 

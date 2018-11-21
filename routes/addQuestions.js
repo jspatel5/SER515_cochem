@@ -33,7 +33,9 @@ app.get('/', function(req, res, next) {
                      console.log("---------");
                      var filePath = process.cwd()+'/view/'+'addQuestion.ejs'
 			         res.render(filePath, {
-				        difficultyLevel_map : result
+				        difficultyLevel_map : result,
+								title: "Add QUESTION"
+
 			    	});
 
          });

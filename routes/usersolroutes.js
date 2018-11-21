@@ -26,13 +26,17 @@ if(!err) {
 });
 
 app.get('/AddSolution', function(req, res, next) {
-  var filePath = process.cwd()+'/view/'+'AddSolution.html';
-  res.sendFile(filePath);
+  var filePath = process.cwd()+'/view/'+'AddSolution.ejs';
+  res.render(filePath,{
+		title : "AddSolution",
+	});
 })
 
 app.get('/ViewSolution', function(req, res, next) {
-  var filePath = process.cwd()+'/view/'+'ViewSolution.html';
-  res.sendFile(filePath);
+  var filePath = process.cwd()+'/view/'+'ViewSolution.ejs';
+  res.render(filePath,{
+		title:"ViewSolution",
+	});
 })
 
 app.post('/ViewSolution/(:id)',function(req,res){
@@ -125,8 +129,10 @@ async.each(filesArray,function(file,eachcallback){
                        if (err) {throw err; res.send("Fail");}
 
                        console.log("1 row inserted.");
-											 var filePath = process.cwd()+'/view/'+'AddSolutionSuccess.html';
-											 res.sendFile(filePath);
+											 var filePath = process.cwd()+'/view/'+'AddSolutionSuccess.ejs';
+											 res.render(filePath,{
+												 title : "AddSolutionSuccess",
+											 });
 											 // res.send("Success");
 
                        });

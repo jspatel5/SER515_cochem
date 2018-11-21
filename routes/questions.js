@@ -165,8 +165,10 @@ app.post('/checkanswer/(:id)',function(req,res){
 						 }
 			// send to question profile page
 			});
-			var filePath = process.cwd()+'/view/'+'correctSolution.html';
-			res.sendFile(filePath);
+			var filePath = process.cwd()+'/view/'+'correctSolution.ejs';
+			res.render(filePath,{
+				title : "CorrectSolution",
+			});
 			// var filePath = process.cwd()+'/view/'+'index.ejs'
 			// 						 res.render(filePath, {
 			// 							title : 'correct answer'

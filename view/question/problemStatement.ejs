@@ -1,19 +1,22 @@
 
-
+<% include ../headmain.ejs %>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 <body>
+	<% if (response) {
+	%>
 	<div class="form-group col-md-12">
     <h6 style= "color: red" > <%= response %> </h6>
   </div>
-<table width='80%' border=0>
+<%}%>
+<table class = 'table table-striped'>
 
 	<tr style='text-align:left; background-color:#CCC'>
     <th>Questions</th>
-    <th>difficulty Level</th>
-    <th>hint</th>
+    <th>Difficulty Level</th>
+    <th>Hint</th>
 	</tr>
 
 	<% if (data) { %>
@@ -34,10 +37,11 @@
 </table>
 
 <form action="/questions/checkanswer/<%= question.questionID %>" method="post" name="answercheck">
-    <label>Answer: </label>
+    <center><label> Answer: </label>
     <input type = "text" id = "answer" value = "" name="answer"/>
     <br>
     <button type="submit" class="btn btn-primary">submit</button>
+		</center>
 </form>
 
 <% }) %>

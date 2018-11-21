@@ -1,28 +1,35 @@
 <html>
-
 <head>
+<% include headmain.ejs %>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-	<title>Userview for viewing solution</title>
+	<title><%= title %></title>
 </head>
 
 <body style="margin:200px">
 
-<form action="/solution/ViewSolution/2", method="post">
-
+<form action="/solution/AddSolution", method="post", enctype="multipart/form-data">
 <div class="form-group col-md-6">
       <label for="QuestionID">QuestionID</label>
       <input type="text" class="form-control" id="QuestionID" placeholder="QuestionID" name="questionID">
 </div>
 
 
+<div class="form-group col-md-6"">
+    <label for="filetoupload">Upload a file</label>
+    <input type="file" class="form-control-file" id="filetoupload" name="filetoupload">
+  </div>
+
+
+
+
+
 <div class="form-group col-md-6">
-    <button type="submit" class="btn btn-primary">View Solution</button>
+    <button type="submit" class="btn btn-primary">Submit</button>
 </div>
 
-</form>
+  </form>
 
-</body>
-
+	</body>
 </html>
