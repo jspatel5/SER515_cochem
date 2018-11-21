@@ -27,16 +27,22 @@
 				<td>
 					 ✅
 					</td>
+					<td>
+						<div style="float:left">
+
+						</div>
+					</td>
 			<%}else {%>
 				<td>
 					❌
 				</td>
+				<td>
+					<div style="float:left">
+						<a href='/questions/problemStatement/<%= question.questionID %>'>Solve Question</a> &nbsp;
+					</div>
+				</td>
 				<%}%>
-			<td>
-				<div style="float:left">
-					<a href='/questions/problemStatement/<%= question.questionID %>'>View</a> &nbsp;
-				</div>
-			</td>
+
 			<td>
 				<form action="/solution/ViewSolution/<%= question.questionID %>", method="post">
 

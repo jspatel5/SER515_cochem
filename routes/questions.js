@@ -79,12 +79,14 @@ app.get('/problemStatement/(:id)', function(req, res, next){
 				req.flash('error', err)
 				var filePath = process.cwd()+'/view/question/'+'problemStatement.ejs'
 										 res.render(filePath, {
+											 response: "",
 											 title: 'question List',
 						 					data: rows
 									});
 			} else {
 				var filePath = process.cwd()+'/view/question/'+'problemStatement.ejs'
 										 res.render(filePath, {
+											 response: "",
 											 title: 'question List',
 						 					data: rows
 									});
@@ -122,47 +124,66 @@ app.post('/checkanswer/(:id)',function(req,res){
 		var id=req.params.id;
 		var answer= req.body.answer;
 		// var a;
-
+		var respMessage = "";
 		connection.query('SELECT * FROM questions where questionID = ' + id, function(err, rows, fields) {
 			if (err) {
+				respMessage = "Internal error occured : Please contact administrator.";
+				var filePath = process.cwd()+'/view/question/'+'problemStatement.ejs';
+				res.render(filePath, {
+					 response : respMessage,
+					 title: 'question List',
+					data: rows
+			 });
+
 			    // console.log("error ocurred",error);
-			    res.send({
-			      "code":400,
-			      "failed":"error ocurred"
-			    });
 			  }else{
 			    // console.log('The solution is: ', results);
 			    if(rows.length >0){
 			      if(rows[0].answer == answer){
-							conn.query('UPDATE users set points= points + 10 where userID = 1 ', function(err1) {
+							connection.query('UPDATE users set points= points + 10 where userID = 1 ', function(err1) {
 								if (err1) {
-									res.send({
-									"code":400,
-									"failed":"error ocurred"
-								});
+									respMessage = "Internal error occured : Please contact administrator.";
+									var filePath = process.cwd()+'/view/question/'+'problemStatement.ejs';
+									res.render(filePath, {
+										 response : respMessage,
+										 title: 'question List',
+										data: rows
+								 });
 								 }
 					// send to question profile page
 					});
 
-					conn.query('INSERT INTO userQuestion (userID, questionID, noOfAttempts, status) VALUES (1, 5, 1,1 ) WHERE userID= 1', function(err1) {
+					connection.query('INSERT INTO userQuestion (userID, qID, noOfAttempts, status) VALUES (1, '+ id +', 1,1 )', function(err1) {
 						if (err1) {
-							res.send({
-							"code":400,
-							"failed":"error ocurred"
-						});
+							respMessage = "Internal error occured : Please contact administrator.";
+							var filePath = process.cwd()+'/view/question/'+'problemStatement.ejs';
+							res.render(filePath, {
+								 response : respMessage,
+								 title: 'question List',
+								data: rows
+						 });
 						 }
 			// send to question profile page
 			});
-			var filePath = process.cwd()+'/view/'+'index.ejs'
-									 res.render(filePath, {
-										title : 'correct answer'
-								});
+			var filePath = process.cwd()+'/view/'+'correctSolution.html';
+			res.sendFile(filePath);
+			// var filePath = process.cwd()+'/view/'+'index.ejs'
+			// 						 res.render(filePath, {
+			// 							title : 'correct answer'
+			// 					});
 				}
 			      else{
-							var filePath = process.cwd()+'/view/'+'index.ejs'
-													 res.render(filePath, {
-														title : 'incorrect answer'
-												});
+							respMessage = "Your answer is not correct. Try again.";
+							var filePath = process.cwd()+'/view/question/'+'problemStatement.ejs';
+							res.render(filePath, {
+								 response : respMessage,
+								 title: 'question List',
+								data: rows
+						 });
+							// var filePath = process.cwd()+'/view/'+'index.ejs'
+							// 						 res.render(filePath, {
+							// 							title : 'incorrect answer'
+							// 					});
 			         //res.sendFile(path.join(__dirname,'../','views/question/answercheck'));
 			      }
 			    }

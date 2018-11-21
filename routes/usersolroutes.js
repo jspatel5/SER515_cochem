@@ -125,7 +125,9 @@ async.each(filesArray,function(file,eachcallback){
                        if (err) {throw err; res.send("Fail");}
 
                        console.log("1 row inserted.");
-                       res.send("Success");
+											 var filePath = process.cwd()+'/view/'+'AddSolutionSuccess.html';
+											 res.sendFile(filePath);
+											 // res.send("Success");
 
                        });
 
