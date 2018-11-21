@@ -38,9 +38,13 @@
 				</div>
 			</td>
 			<td>
-				<div style="float:left">
-					<a href='/questions/problemStatement/<%= question.questionID %>'>Solution</a> &nbsp;
+				<form action="/solution/ViewSolution/<%= question.questionID %>", method="post">
+
+				<div class="form-group col-md-6">
+				    <button type="submit" class="btn btn-primary">View Solution</button>
 				</div>
+
+				</form>
 			</td>
 
 		</tr>

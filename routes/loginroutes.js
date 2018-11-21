@@ -42,7 +42,7 @@ app.post('/register',function(req,res){
 
 	var respMessage = "";
 	var filePath = process.cwd()+'/view/'+'registration.ejs';
-  connection.query('SELECT * FROM user WHERE userName = ?',[req.body.userName], function (error, results, fields) {
+  connection.query('SELECT * FROM users WHERE userName = ?',[req.body.userName], function (error, results, fields) {
   if (error) {
     // console.log("error ocurred",error);
 
@@ -80,7 +80,7 @@ app.post('/register',function(req,res){
 				        response : respMessage
 			    	});
 				}else{
-					connection.query('INSERT INTO user SET ?',users, function (error, results, fields) {
+					connection.query('INSERT INTO users SET ?',users, function (error, results, fields) {
 					  if (error) {
 					    console.log("error ocurred",error);
 					    respMessage = "Error occured while processing your request ";
@@ -117,21 +117,18 @@ app.post('/login',function(req,res){
   var updatePointsQuery = "";
   var points = "";
   var respMessage = "";
-  connection.query('SELECT * FROM user WHERE userName = ?',[userName], function (error, results, fields) {
+  connection.query('SELECT * FROM users WHERE username = ?',[userName], function (error, results, fields) {
   if (error) {
-    // console.log("error ocurred",error);
     var filePath = process.cwd()+'/view/'+'login.ejs'
       	respMessage = "Error occured while processing your request ";
 			         res.render(filePath, {
 				        response : respMessage
 			    	});
   }else{
-    // console.log('The solution is: ', results);
     if(results.length >0){
       if(results[0].password == password){
       	points = results[0].points;
-       updatePointsQuery = "UPDATE user SET points = ? WHERE userName = ?"
-
+       updatePointsQuery = "UPDATE users SET points = ? WHERE username = ?"
 
 		  	connection.query(updatePointsQuery,[points+10,userName], function (err, result) {
 		  if (err) throw err;
@@ -142,16 +139,21 @@ app.post('/login',function(req,res){
         var filePath = process.cwd()+'/view/'+'adminProfile.ejs';
                res.render(filePath, {});
       }else if(results[0].userType == "User"){
-        var filePath = process.cwd()+'/view/'+'UserProfile.ejs';
-               res.render(filePath, {});
+				var filePath = process.cwd()+'/view/'+'OneProfile.ejs'
+										 res.render(filePath, {
+						title: "Display User"
+						,user: results[0]
+						,message: ''
+				});
+        // var filePath = process.cwd()+'/view/'+'UserProfile.ejs';
+               // res.render(filePath, {});
       }
 
-       res.send({
-          "code":200,
-          "success":"login sucessfull"
-          });
-      // send to user profile page
-      }
+      //  res.send({
+      //     "code":200,
+      //     "success":"login sucessfull"
+      //     });
+       }
       else{
       	var filePath = process.cwd()+'/view/'+'login.ejs'
       	respMessage = "Username and password does not match";
@@ -166,8 +168,6 @@ app.post('/login',function(req,res){
 			         res.render(filePath, {
 				        response : respMessage
 			    	});
-      //res.send('/api/login');
-      //sendFile(__dirname+"/"+"login.html");
     }
   }
   });
@@ -180,29 +180,25 @@ app.post('/forgotPassword',function(req,res){
 	var lastName= req.body.lastName;
 	var email= req.body.email;
 
-	connection.query('SELECT * FROM user WHERE userName = ?',[userName], function (error, results, fields) {
+	connection.query('SELECT * FROM users WHERE username = ?',[userName], function (error, results, fields) {
   if (error) {
-    // console.log("error ocurred",error);
     res.send({
       "code":400,
       "failed":"error ocurred"
     })
   }else{
-    // console.log('The solution is: ', results);
     if(results.length >0){
       if(results[0].firstName == firstName && results[0].lastName == lastName && results[0].email == email){
         res.send({
           "code":200,
           "password":results[0].password
             });
-      // send to user profile page
       }
       else{
         res.send({
           "code":204,
           "success":" given parameters does not match with your profile."
             });
-         //res.sendFile(path.join(__dirname,'../','login.html'));
       }
     }
     else{
@@ -210,8 +206,6 @@ app.post('/forgotPassword',function(req,res){
      "code":204,
         "success":"Username does not exits"
           });
-      //res.send('/api/login');
-      //sendFile(__dirname+"/"+"login.html");
     }
   }
   });

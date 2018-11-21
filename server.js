@@ -5,6 +5,7 @@ var addQue = require('./routes/addQuestions');
 var index = require('./routes/index')
 var questions = require('./routes/questions')
 var progress = require('./routes/progress')
+var solution = require('./routes/usersolroutes');
 
 
 var back = require('./routes/back');
@@ -41,6 +42,7 @@ app.use('/questions', questions);
 app.use('/login',login);
 app.use('/addQue',addQue);
 
+app.use('/solution',solution);
 app.use('/back', back);
 app.use('/leaderboard', display);
 app.use('/home',homepageOne);
