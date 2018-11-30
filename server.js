@@ -1,6 +1,19 @@
 var express    = require("express");
 var login = require('./routes/loginroutes');
 var solution = require('./routes/usersolroutes');
+var addQue = require('./routes/addQuestions');
+var index = require('./routes/index')
+var questions = require('./routes/questions')
+var progress = require('./routes/progress')
+
+
+var back = require('./routes/back');
+var display = require('./routes/display');
+var homepageOne = require('./routes/homepageOne')
+var OneProfile = require('./routes/OneProfile')
+var UserProfile = require('./routes/UserProfile')
+
+var requestSol = require('./routes/checkPointsForSolution')
 var bodyParser = require('body-parser');
 var path = require("path");
 var app = express();
@@ -10,6 +23,8 @@ var busboy=require('connect-busboy');
 var upload = multer({ dest: 'uploads/' });
 var router = express.Router();
 var async = require('async');
+var mysql = require('mysql');
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(function(req, res, next) {
@@ -18,38 +33,18 @@ app.use(function(req, res, next) {
     next();
 });
 var router = express.Router();
+app.set('views', __dirname + '/view');
+app.set('view engine', 'ejs');
 
-// test route
-router.get('/register', function(req, res) {
-	//res.sendFile('registration.html', {root: __dirname });
-	//console.log(__dirname +'/view'+ '/registration.html');
-	res.sendFile(path.join(__dirname,'/view', '/registration.html'));
-	
-   // res.json({ message: 'welcome to our upload module apis' });
-});
-router.get('/login', function(req, res) {
-	res.sendFile(path.join(__dirname,'/view', '/login.html'));
-   // res.json({ message: 'welcome to our upload module apis' });
-});
-router.get('/forgotPassword', function(req, res) {
-	res.sendFile(path.join(__dirname,'/view', '/forgotPassword.html'));
-   // res.json({ message: 'welcome to our upload module apis' });
-});
+app.use('/', index);
+app.use('/questions', questions);
+app.use('/login',login);
+app.use('/addQue',addQue);
+app.use('/solution',solution);
+app.use('/back', back);
+app.use('/leaderboard', display);
+app.use('/home',homepageOne);
+app.use('/editprofile', OneProfile);
+app.use('/user', UserProfile);
 
-router.get('/ViewSolution', function(req, res) {
-	res.sendFile(path.join(__dirname,'/view', '/ViewSolution.html'));
-   // res.json({ message: 'welcome to our upload module apis' });
-});
-
-router.get('/AddSolution', function(req, res) {
-	res.sendFile(path.join(__dirname,'/view', '/AddSolution.html'));
-   // res.json({ message: 'welcome to our upload module apis' });
-});
-//route to handle user registration
-router.post('/register',login.register);
-router.post('/login',login.login);
-router.post('/ViewSolution',solution.usersol);
-router.post('/AddSolution', upload.single('filetoupload'), solution.seesolution);
-//router.post('/forgotPassword',login.forgotPassword);
-app.use('/api', router);
 app.listen(8080);
