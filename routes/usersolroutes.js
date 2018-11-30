@@ -25,9 +25,18 @@ if(!err) {
 }
 });
 
+app.get('/AddSolution', function(req, res, next) {
+  var filePath = process.cwd()+'/view/'+'AddSolution.html';
+  res.sendFile(filePath);
+})
 
+app.get('/ViewSolution', function(req, res, next) {
+  var filePath = process.cwd()+'/view/'+'ViewSolution.html';
+  res.sendFile(filePath);
+})
 
-exports.usersol = function(req,res){
+app.post('/ViewSolution',function(req,res){
+
                      
                      var questionID=req.body.questionID;
                      
@@ -41,6 +50,9 @@ exports.usersol = function(req,res){
                        fs.readFile(tempFile, function (err,data){
                        res.contentType("application/pdf");
                        res.send(data);
+                       
+                       	
+
                     
                 
 });
@@ -52,15 +64,15 @@ exports.usersol = function(req,res){
 
          //});
 
-}
+});
 
-exports.seesolution = function(req,res){
-console.log(req.file);
 
+app.post('/AddSolution',upload.single('filetoupload'),function(req,res){
+
+//var solutionname = "/Users/janiceabraham/Desktop/test"+req.file.originalname;
 var solutionname = req.file.originalname;
 var filesArray = req.file;
 var questionID=req.body.questionID
-
 
 async.each(filesArray,function(file,eachcallback){
         async.waterfall([
@@ -75,7 +87,8 @@ async.each(filesArray,function(file,eachcallback){
             });
         },
         function (data, callback) {
-         
+          //var writepath = "/Users/janiceabraham/Desktop/test";
+          //fs.writeFile(writepath + req.file.originalname, data, (err) => {
           fs.writeFile(req.file.originalname, data, (err) => {
           if (err) {
             console.log("error occured", err);
@@ -112,7 +125,7 @@ async.each(filesArray,function(file,eachcallback){
                        if (err) {throw err; res.send("Fail");}
 
                        console.log("1 row inserted.");
-                           res.send("Success");
+                       res.send("Success");
 
                        });
                      
@@ -121,5 +134,6 @@ async.each(filesArray,function(file,eachcallback){
 
          
 
-}
+})
 
+module.exports=app
