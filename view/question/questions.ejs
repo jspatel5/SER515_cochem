@@ -1,0 +1,60 @@
+
+<% include ../headmain.ejs %>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+<table class = 'table table-striped'>
+
+	<tr style='text-align:left; background-color:#CCC'>
+    <th>Questions</th>
+		<th>Difficulty Level</th>
+		<th>Status</th>
+		<th>View question</th>
+		<th>Solution</th>
+
+
+	</tr>
+
+	<% if (data) { %>
+	<% data.forEach(function(question){ %>
+		<tr>
+      <td><%= question.questionStatement %></td>
+			<td><%= question.difficultyLevel %></td>
+			<% if (question.status){
+				%>
+				<td>
+					 ✅
+					</td>
+					<td>
+						<div style="float:left">
+
+						</div>
+					</td>
+			<%}else {%>
+				<td>
+					❌
+				</td>
+				<td>
+					<div style="float:left">
+						<a href='/questions/problemStatement/<%= question.questionID %>'>Solve Question</a> &nbsp;
+					</div>
+				</td>
+				<%}%>
+
+			<td>
+				<form action="/solution/ViewSolution/<%= question.questionID %>", method="post">
+
+				<div class="form-group col-md-6">
+				    <button type="submit" class="btn btn-primary">View Solution</button>
+				</div>
+
+				</form>
+			</td>
+
+		</tr>
+	<% }) %>
+	<% } %>
+
+</table>

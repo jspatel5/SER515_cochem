@@ -3,10 +3,10 @@ var app = express();
 var mysql = require('mysql');
 var router = express.Router();
 var connection = mysql.createConnection({
-        host: "localhost",
-                user: "jinal",
-                password: "jinal",
-                database: "ProjectEuler" 
+  host: "localhost",
+	user: "root",
+	password: "",
+	database: "EulerProject"
 });
 app.use(express.static(__dirname + '/'));
 connection.connect(function(err){
@@ -18,7 +18,7 @@ if(!err) {
 });
 
 exports.requestSolution = function(req,res){
-  
+
     var userName = req.body.userName;
     var sql1 = 'select * from user where userName=?';
                        connection.query(sql1,[userName], function (err, result) {
@@ -37,20 +37,20 @@ exports.requestSolution = function(req,res){
                                         console.log(result[0].points);
                                          if(result[0].points>10){
                                              console.log("User has more than 10 points.");
-                                             var filePath = process.cwd()+'/view/'+'showSolution.html';
+                                             var filePath = process.cwd()+'/views/'+'showSolution.html';
                                              res.sendFile(filePath);
                                          }else{
                                              console.log("User does not have sufficient points.");
-                                             var filePath = process.cwd()+'/view/'+'insufficientPoints.html';
+                                             var filePath = process.cwd()+'/views/'+'insufficientPoints.html';
                                              res.sendFile(filePath);
                                         }
 
                                      }
-                                     
+
                                  }
-                               
-                       
+
+
                     });
-                            
-         
+
+
 }

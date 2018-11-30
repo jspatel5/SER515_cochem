@@ -1,0 +1,31 @@
+<% include ../headmain.ejs %>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+<table class = 'table table-striped'>
+
+	<tr style='text-align:left; background-color:#CCC'>
+		<th>Difficulty Level</th>
+		<th />
+
+	</tr>
+
+	<% if (data) { %>
+	<% data.forEach(function(question){ %>
+		<tr>
+			<td><%= question.difficultyLevel %></td>
+			<!-- <td><%= question.difficultyLevelID %></td>
+			<td><%= question.email %></td> -->
+			<td>
+				<div style="float:left">
+					<a href='/questions/questionlist/<%= question.difficultyLevelID %>'>View</a> &nbsp;
+
+				</div>
+			</td>
+		</tr>
+	<% }) %>
+	<% } %>
+
+</table>
