@@ -1,19 +1,28 @@
 <html>
 <head>
+
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-<title>User Login Page!</title>
+<title><%= title %></title>
 </head>
 
 <body style="margin:200px">
+  <div class="page-wrapper">
+      <nav class="navbar navbar-light bg-light">
 
+          <!-- <span class="navbar-brand mb-0 h1" > <a href="/editprofile/" title= "Edit Profile">Display MyProfile</a> </span> -->
+          <h3 align="center">WELCOME TO EULER PROJECT </h3>
+
+      </nav>
+
+  </div>
   <div class="form-group col-md-12">
     <h6 style= "color: red" > <%=response%> </h6>
 
   </div>
-    
-    <form action="/api/login" method="post" name="loginForm">
+
+    <form action="/login/login" method="post" name="loginForm">
       <div class="form-group col-md-6">
         <label for="inputUserName">Username</label>
         <input type="text" class="form-control" id="inputUserName" placeholder="User Name" name="userName">
@@ -22,13 +31,13 @@
         <label for="inputPassword">Password</label>
         <input type="password" class="form-control" id="inputPassword" placeholder="Password" name="password">
       </div>
-    
+
       <div class="form-group col-md-6">
       <button type="submit" class="btn btn-primary">Log in</button>
      </div>
     </form>
 
-    <a href="/api/forgotPassword">Forgot password</a>
+    <a href="/login/forgotPassword">Forgot password</a>
 
 
 </body>

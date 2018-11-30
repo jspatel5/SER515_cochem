@@ -3,12 +3,13 @@ var app = express();
 var mysql = require('mysql');
 var router = express.Router();
 var connection = mysql.createConnection({
-		host: "localhost",
-                user: "jinal",
-                password: "jinal",
-                database: "ProjectEuler" 
+	host: "localhost",
+	user: "jinal",
+	password: "jinal",
+	database: "ProjectEuler"
 });
 app.use(express.static(__dirname + '/'));
+
 connection.connect(function(err){
 if(!err) {
     console.log("Database is connected ... ");
@@ -17,28 +18,54 @@ if(!err) {
 }
 });
 
-exports.register = function(req,res){
+app.get('/login', function(req, res, next) {
+  var filePath = process.cwd()+'/view/'+'login.ejs';
+  res.render(filePath, {
+                response : "",
+								title: "Login Page"
+            });
+})
+
+app.get('/register', function(req, res, next) {
+  var filePath = process.cwd()+'/view/'+'registration.ejs';
+  res.render(filePath, {
+                response : "",
+								title: "registration Page"
+            });
+})
+
+app.get('/forgotPassword', function(req, res, next) {
+  var filePath = process.cwd()+'/view/'+'forgotPassword.ejs';
+  res.render(filePath,{
+		title : "forgotPassword"
+	});
+})
+
+
+app.post('/register',function(req,res){
 
 	var respMessage = "";
 	var filePath = process.cwd()+'/view/'+'registration.ejs';
   connection.query('SELECT * FROM user WHERE userName = ?',[req.body.userName], function (error, results, fields) {
   if (error) {
     // console.log("error ocurred",error);
-    
+
       	respMessage = "Error occured while processing your request ";
       	res.render(filePath, {
-				        response : respMessage
+				        response : respMessage,
+								title: "Login Page"
 			    	});
-			        
+
 	  }else{
 	  	if (results.length >0){
 	  		respMessage = " User already exist with this user name. Try other username";
 
 	  		console.log(respMessage);
 	  		res.render(filePath, {
-				        response : respMessage
+				        response : respMessage,
+								title: "Login Page"
 			    	});
-			         
+
 	  		}else{
 	  		var today = new Date();
 			  var users={
@@ -56,7 +83,8 @@ exports.register = function(req,res){
 			  if (!req.body.firstName.trim() && !req.body.lastName.trim() && !req.body.password.trim()) {
     				respMessage = " First Name, Last Name, password can not be null"
     				res.render(filePath, {
-				        response : respMessage
+				        response : respMessage,
+								title: "Login Page"
 			    	});
 				}else{
 					connection.query('INSERT INTO user SET ?',users, function (error, results, fields) {
@@ -64,70 +92,84 @@ exports.register = function(req,res){
 					    console.log("error ocurred",error);
 					    respMessage = "Error occured while processing your request ";
 					    res.render(filePath, {
-				        response : respMessage
+				        response : respMessage,
+								title: "Login Page"
 			    	});
-								       
+
 					  }else{
 					    console.log('The solution is: ', results);
 					    filePath = process.cwd()+'/view/'+'login.ejs';
 					    respMessage = "user registered sucessfully"
 					    res.render(filePath, {
-				        response : respMessage
+				        response : respMessage,
+								title: "Login Page"
 			    	});
 					  }
 					  });
 
 				}
 
-			  
+
 
 	  		}
 
 		}
-		 
+
 	});
 
- 
-}
 
-exports.login = function(req,res){
+})
+
+app.post('/login',function(req,res){
   var userName= req.body.userName;
   var password = req.body.password;
   var updatePointsQuery = "";
   var points = "";
   var respMessage = "";
-  connection.query('SELECT * FROM user WHERE userName = ?',[userName], function (error, results, fields) {
+  connection.query('SELECT * FROM user WHERE username = ?',[userName], function (error, results, fields) {
   if (error) {
-    // console.log("error ocurred",error);
     var filePath = process.cwd()+'/view/'+'login.ejs'
       	respMessage = "Error occured while processing your request ";
 			         res.render(filePath, {
-				        response : respMessage
+				        response : respMessage,
+								title: "Login Page"
 			    	});
   }else{
-    // console.log('The solution is: ', results);
     if(results.length >0){
       if(results[0].password == password){
       	points = results[0].points;
-       updatePointsQuery = "UPDATE user SET points = ? WHERE userName = ?"
-      
-		  	
+       updatePointsQuery = "UPDATE user SET points = ? WHERE username = ?"
+
 		  	connection.query(updatePointsQuery,[points+10,userName], function (err, result) {
 		  if (err) throw err;
 		    console.log(result.affectedRows + " record(s) updated");
 		  });
-		
-       res.send({
-          "code":200,
-          "success":"login sucessfull"
-          });
-      // send to user profile page
+
+      if(results[0].userType == "Admin"){
+        var filePath = process.cwd()+'/view/'+'adminProfile.ejs';
+               res.render(filePath, {title: "Admin Profile Page"});
+      }else if(results[0].userType == "User"){
+				var filePath = process.cwd()+'/view/'+'OneProfile.ejs'
+										 res.render(filePath, {
+						title: "User Profile Page"
+						,user: results[0]
+						,message: ''
+				});
+        // var filePath = process.cwd()+'/view/'+'UserProfile.ejs';
+               // res.render(filePath, {});
       }
+
+      //  res.send({
+      //     "code":200,
+      //     "success":"login sucessfull"
+      //     });
+       }
       else{
       	var filePath = process.cwd()+'/view/'+'login.ejs'
       	respMessage = "Username and password does not match";
 			         res.render(filePath, {
-				        response : respMessage
+				        response : respMessage,
+								title: "Login Page"
 			    	});
       }
     }
@@ -135,44 +177,40 @@ exports.login = function(req,res){
     	var filePath = process.cwd()+'/view/'+'login.ejs'
       	respMessage = "Username does not exist";
 			         res.render(filePath, {
-				        response : respMessage
+				        response : respMessage,
+								title: "Login Page"
 			    	});
-      //res.send('/api/login');
-      //sendFile(__dirname+"/"+"login.html");
     }
   }
   });
 
-}
-exports.forgotPassword = function(req,res){
+})
+
+app.post('/forgotPassword',function(req,res){
 	var userName= req.body.userName;
 	var firstName= req.body.firstName;
 	var lastName= req.body.lastName;
 	var email= req.body.email;
 
-	connection.query('SELECT * FROM user WHERE userName = ?',[userName], function (error, results, fields) {
+	connection.query('SELECT * FROM user WHERE username = ?',[userName], function (error, results, fields) {
   if (error) {
-    // console.log("error ocurred",error);
     res.send({
       "code":400,
       "failed":"error ocurred"
     })
   }else{
-    // console.log('The solution is: ', results);
     if(results.length >0){
       if(results[0].firstName == firstName && results[0].lastName == lastName && results[0].email == email){
         res.send({
           "code":200,
           "password":results[0].password
             });
-      // send to user profile page
       }
       else{
         res.send({
           "code":204,
           "success":" given parameters does not match with your profile."
             });
-         //res.sendFile(path.join(__dirname,'../','login.html'));
       }
     }
     else{
@@ -180,12 +218,10 @@ exports.forgotPassword = function(req,res){
      "code":204,
         "success":"Username does not exits"
           });
-      //res.send('/api/login');
-      //sendFile(__dirname+"/"+"login.html");
     }
   }
   });
 
-}
+})
 
-
+module.exports = app
