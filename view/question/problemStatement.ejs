@@ -1,0 +1,49 @@
+
+<% include ../headmain.ejs %>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+<body>
+	<% if (response) {
+	%>
+	<div class="form-group col-md-12">
+    <h6 style= "color: red" > <%= response %> </h6>
+  </div>
+<%}%>
+<table class = 'table table-striped'>
+
+	<tr style='text-align:left; background-color:#CCC'>
+    <th>Questions</th>
+    <th>Difficulty Level</th>
+    <th>Hint</th>
+	</tr>
+
+	<% if (data) { %>
+	<% data.forEach(function(question){ %>
+		<tr>
+      <td><%= question.questionStatement %></td>
+			<td><%= question.difficultyLevel %></td>
+			<td>
+				<div style="float:left">
+				 <a href='/questions/hint/<%= question.questionID %>'>View hint</a> &nbsp;
+				</div>
+			</td>
+		</tr>
+
+
+
+
+</table>
+
+<form action="/questions/checkanswer/<%= question.questionID %>" method="post" name="answercheck">
+    <center><label> Answer: </label>
+    <input type = "text" id = "answer" value = "" name="answer"/>
+    <br>
+    <button type="submit" class="btn btn-primary">submit</button>
+		</center>
+</form>
+
+<% }) %>
+<% } %>
+</body>

@@ -3,10 +3,10 @@ var app = express();
 var mysql = require('mysql');
 var router = express.Router();
 var connection = mysql.createConnection({
-		host: "localhost",
-                user: "jinal",
-                password: "jinal",
-                database: "ProjectEuler" 
+	host: "localhost",
+	user: "jinal",
+	password: "jinal",
+	database: "ProjectEuler"
 });
 app.use(express.static(__dirname + '/'));
 connection.connect(function(err){
@@ -17,10 +17,15 @@ if(!err) {
 }
 });
 
-exports.loadDiffifcultyLevel = function(req,res){
+app.get('/index', function(req, res, next) {
+  var filePath = process.cwd()+'/view/'+'index.html';
+  res.sendFile(filePath);
+})
+
+app.get('/addQuestion', function(req, res, next) {
 
 		var sql1 = 'select * from difficultyLevel';
-		
+
             connection.query(sql1,function (err, result) {
                  if (err) throw err;
                  console.log("Sql result : ");
@@ -28,16 +33,17 @@ exports.loadDiffifcultyLevel = function(req,res){
                      console.log("---------");
                      var filePath = process.cwd()+'/view/'+'addQuestion.ejs'
 			         res.render(filePath, {
-				        difficultyLevel_map : result
+				        difficultyLevel_map : result,
+								title: "Add QUESTION"
+
 			    	});
 
          });
-         
-}
+
+})
 
 
-exports.addQuestion = function(req,res){
-  
+app.post('/addQuestion',function(req,res){
 
   var difficultyLevelID = req.body.difficultyLevel;
   var questionStatement = req.body.questionStatement;
@@ -48,7 +54,7 @@ exports.addQuestion = function(req,res){
   console.log(answer);
   console.log(hint);
 
-  var sql1 = 'INSERT INTO `questions` (`answer`,`questionStatement`,`hint`,`difficultyLevelID`) VALUES (?,?,?,?)';
+  var sql1 = 'INSERT INTO `questions` (`answer`,`questionStatement`,`hint`,`difficultyLevel`) VALUES (?,?,?,?)';
   connection.query(sql1,[answer,questionStatement,hint,difficultyLevelID], function (error, results, fields) {
   if (error) {
     console.log("error ocurred",error);
@@ -64,11 +70,9 @@ exports.addQuestion = function(req,res){
     //console.log(filePath);
     res.sendFile(filePath);
     //res.sendFile('addQuestionSuccess.html', {root: __dirname });
-    
+
   }
   });
-}
+})
 
-
-
-
+module.exports = app

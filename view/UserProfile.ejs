@@ -1,6 +1,4 @@
 <% include headmain.ejs %>
-<<<<<<< HEAD
-=======
 <head>
   <style>
         body {
@@ -14,49 +12,31 @@
         </style>
 </head>
 <body>
->>>>>>> master
 <div class="container">
     <% if (message) { %>
         <p class="text-center text-danger"><%= message %></p>
     <% } %>
 
-<<<<<<< HEAD
-    <% if (users) { %>       
-=======
     <% if (users) { %>
->>>>>>> master
             <% if ( ID == '1') { %>
                     <h1 class="text-center"> <%= users.firstName %> <%= users.lastName %>  </h1>
                 <p class="text-center"> <br> <%= users.email %> </p>
                 <p class="text-center"> <br> Points Gained : <%= users.points %></p>
                 <p class="text-center"> User_Name : <%= users.username %></p>
-<<<<<<< HEAD
-                <span class="navbar-brand mb-0 h1" > <a class="float-right" href="https://projecteuler.net/archives" title="Solve Questions">Solve Questions</a></span>
-=======
                 <span class="navbar-brand mb-0 h1" > <a class="float-right" href="/questions" title="Solve Questions">Solve Questions</a></span>
                 <span class="navbar-brand mb-0 h1" > <a class="float-right" href="/questions/progress" title="View Progress">View Progress</a></span>
 
->>>>>>> master
                 <% } else { %>
                 <h1 class="text-center"> <%= users.firstName %> <%= users.lastName %>  </h1>
                 <p class="text-center"> <br> <%= users.email %> </p>
                 <p class="text-center"> <br> Points Gained : <%= users.points %></p>
-                <p class="text-center"> User_Name : <%= users.username %></p>
+                <p class="text-center"> User_Name : <%= users.userName %></p>
                 <% } %>
                 <a class="float-right" href="/back" title="Back">Back</a>
     <% } else { %>
         <p class="text-center">user Not Found.</p>
-<<<<<<< HEAD
-        
-    <% } %>
-</div>
-</div>
-</body>
-</html>
-=======
 
     <% } %>
 </div>
 </body>
 </html>
->>>>>>> master

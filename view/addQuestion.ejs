@@ -1,18 +1,21 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
          <head >
-        //<!-- Required meta tags -->
+        <!-- Required meta tags -->
+        <% include headmain.ejs %>
          <meta charset="utf-8">
          <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        //<!-- Bootstrap CSS -->
+        <!-- Bootstrap CSS -->
          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 
-         <title>Add Question!</title>
+         <title><%= title %></title>
          </head>
          <body>
-        
-         <form action="/api/addQuestion"  method="post" name="addForm">
+
+         <form action="/addQue/addQuestion"  method="post" name="addForm">
          <div class="form-group" style="margin-left:150px; margin-right:150px; margin-top:100px">
          <label for="difficultyLevel">Select difficulty level</label>
 
@@ -22,7 +25,7 @@
 			<% difficultyLevel_map.forEach(function(dl){ %>
 				<option value=<%=dl.difficultyLevelID %>> <%=dl.difficultyLevel%> </option>
 			<% }) %>
-		<% } %>       
+		<% } %>
 
          </select>
          </div>
