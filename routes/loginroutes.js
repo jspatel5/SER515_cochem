@@ -18,34 +18,76 @@ if(!err) {
 });
 
 exports.register = function(req,res){
-  // console.log("req",req.body);
-  var today = new Date();
-  var users={
-    "userName":req.body.userName,
-    "firstName":req.body.firstName,
-    "lastName":req.body.lastName,
-    "email":req.body.email,
-    "password":req.body.password,
-    "userType":"User",
-    "points":50,
-    "created":today,
-    "modified":today
-  }
-  connection.query('INSERT INTO user SET ?',users, function (error, results, fields) {
+
+	var respMessage = "";
+	var filePath = process.cwd()+'/view/'+'registration.ejs';
+  connection.query('SELECT * FROM user WHERE userName = ?',[req.body.userName], function (error, results, fields) {
   if (error) {
-    console.log("error ocurred",error);
-    res.send({
-      "code":400,
-      "failed":"error ocurred"
-    })
-  }else{
-    console.log('The solution is: ', results);
-    res.send({
-      "code":200,
-      "success":"user registered sucessfully"
-        });
-  }
-  });
+    // console.log("error ocurred",error);
+    
+      	respMessage = "Error occured while processing your request ";
+      	res.render(filePath, {
+				        response : respMessage
+			    	});
+			        
+	  }else{
+	  	if (results.length >0){
+	  		respMessage = " User already exist with this user name. Try other username";
+
+	  		console.log(respMessage);
+	  		res.render(filePath, {
+				        response : respMessage
+			    	});
+			         
+	  		}else{
+	  		var today = new Date();
+			  var users={
+			    "userName":req.body.userName,
+			    "firstName":req.body.firstName,
+			    "lastName":req.body.lastName,
+			    "email":req.body.email,
+			    "password":req.body.password,
+			    "userType":"User",
+			    "points":50,
+			    "created":today,
+			    "modified":today
+			  }
+
+			  if (!req.body.firstName.trim() && !req.body.lastName.trim() && !req.body.password.trim()) {
+    				respMessage = " First Name, Last Name, password can not be null"
+    				res.render(filePath, {
+				        response : respMessage
+			    	});
+				}else{
+					connection.query('INSERT INTO user SET ?',users, function (error, results, fields) {
+					  if (error) {
+					    console.log("error ocurred",error);
+					    respMessage = "Error occured while processing your request ";
+					    res.render(filePath, {
+				        response : respMessage
+			    	});
+								       
+					  }else{
+					    console.log('The solution is: ', results);
+					    filePath = process.cwd()+'/view/'+'login.ejs';
+					    respMessage = "user registered sucessfully"
+					    res.render(filePath, {
+				        response : respMessage
+			    	});
+					  }
+					  });
+
+				}
+
+			  
+
+	  		}
+
+		}
+		 
+	});
+
+ 
 }
 
 exports.login = function(req,res){
@@ -53,13 +95,15 @@ exports.login = function(req,res){
   var password = req.body.password;
   var updatePointsQuery = "";
   var points = "";
+  var respMessage = "";
   connection.query('SELECT * FROM user WHERE userName = ?',[userName], function (error, results, fields) {
   if (error) {
     // console.log("error ocurred",error);
-    res.send({
-      "code":400,
-      "failed":"error ocurred"
-    })
+    var filePath = process.cwd()+'/view/'+'login.ejs'
+      	respMessage = "Error occured while processing your request ";
+			         res.render(filePath, {
+				        response : respMessage
+			    	});
   }else{
     // console.log('The solution is: ', results);
     if(results.length >0){
@@ -80,18 +124,19 @@ exports.login = function(req,res){
       // send to user profile page
       }
       else{
-        res.send({
-          "code":204,
-          "success":"Username and password does not match"
-            });
-         //res.sendFile(path.join(__dirname,'../','login.html'));
+      	var filePath = process.cwd()+'/view/'+'login.ejs'
+      	respMessage = "Username and password does not match";
+			         res.render(filePath, {
+				        response : respMessage
+			    	});
       }
     }
     else{
-      res.send({
-     "code":204,
-        "success":"Username does not exits"
-          });
+    	var filePath = process.cwd()+'/view/'+'login.ejs'
+      	respMessage = "Username does not exist";
+			         res.render(filePath, {
+				        response : respMessage
+			    	});
       //res.send('/api/login');
       //sendFile(__dirname+"/"+"login.html");
     }
