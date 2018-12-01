@@ -1,10 +1,25 @@
 
+<<<<<<< HEAD
+
+=======
 <% include ../headmain.ejs %>
+>>>>>>> master
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 <body>
+<<<<<<< HEAD
+<table width='80%' border=0>
+
+	<tr style='text-align:left; background-color:#CCC'>
+    <th>Questions</th>
+    <th>difficulty Level</th>
+    <th>hint</th>
+		<!-- <th>Age</th>
+		<th>Email</th>
+		<th>Action</th> -->
+=======
 	<% if (response) {
 	%>
 	<div class="form-group col-md-12">
@@ -17,6 +32,7 @@
     <th>Questions</th>
     <th>Difficulty Level</th>
     <th>Hint</th>
+>>>>>>> master
 	</tr>
 
 	<% if (data) { %>
@@ -27,6 +43,13 @@
 			<td>
 				<div style="float:left">
 				 <a href='/questions/hint/<%= question.questionID %>'>View hint</a> &nbsp;
+<<<<<<< HEAD
+					<!-- <form method="post" action="/users/delete/<%= question.difficultyLevelID %>" style="float:right">
+						<input type="submit" name="delete" value='Delete' onClick="return confirm('Are you sure you want to delete?')" /> -->
+						<!-- <input type="hidden" name="_method" value="DELETE" />
+					</form> -->
+=======
+>>>>>>> master
 				</div>
 			</td>
 		</tr>
@@ -37,11 +60,18 @@
 </table>
 
 <form action="/questions/checkanswer/<%= question.questionID %>" method="post" name="answercheck">
+<<<<<<< HEAD
+    <label>Answer: </label>
+    <input type = "text" id = "answer" value = "" name="answer"/>
+    <br>
+    <button type="submit" class="btn btn-primary">submit</button>
+=======
     <center><label> Answer: </label>
     <input type = "text" id = "answer" value = "" name="answer"/>
     <br>
     <button type="submit" class="btn btn-primary">submit</button>
 		</center>
+>>>>>>> master
 </form>
 
 <% }) %>

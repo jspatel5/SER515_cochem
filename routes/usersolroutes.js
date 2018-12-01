@@ -10,7 +10,11 @@ var upload = multer({ dest: 'uploads/' });
 var router = express.Router();
 var async = require('async');
 var connection = mysql.createConnection({
+<<<<<<< HEAD
+  host: "localhost",
+=======
 	host: "localhost",
+>>>>>>> master
 	user: "root",
 	password: "",
 	database: "EulerProject"
@@ -44,6 +48,13 @@ app.post('/ViewSolution/(:id)',function(req,res){
                       var questionID=req.params.id;
                      // var questionID=req.body.questionID;
 
+<<<<<<< HEAD
+exports.usersol = function(req,res){
+
+                     var questionID=req.body.questionID;
+
+=======
+>>>>>>> master
                       var solpath;
                       connection.query('SELECT solutionPath from Questions WHERE questionID = ?',[questionID], function (err, rows) {
 
@@ -56,9 +67,12 @@ app.post('/ViewSolution/(:id)',function(req,res){
                        res.send(data);
 
 
+<<<<<<< HEAD
+=======
 
 
 
+>>>>>>> master
 });
                        });
 
@@ -142,6 +156,10 @@ async.each(filesArray,function(file,eachcallback){
 
 
 
+<<<<<<< HEAD
+}
+=======
 })
 
 module.exports=app
+>>>>>>> master

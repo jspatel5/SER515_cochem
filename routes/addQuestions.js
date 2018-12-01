@@ -6,7 +6,11 @@ var connection = mysql.createConnection({
 	host: "localhost",
 	user: "root",
 	password: "",
+<<<<<<< HEAD
+	database: "EulerProject" 
+=======
 	database: "EulerProject"
+>>>>>>> master
 });
 app.use(express.static(__dirname + '/'));
 connection.connect(function(err){
@@ -17,6 +21,10 @@ if(!err) {
 }
 });
 
+<<<<<<< HEAD
+exports.addQuestion = function(req,res){
+
+=======
 app.get('/index', function(req, res, next) {
   var filePath = process.cwd()+'/view/'+'index.html';
   res.sendFile(filePath);
@@ -44,6 +52,7 @@ app.get('/', function(req, res, next) {
 
 
 app.post('/addQuestion',function(req,res){
+>>>>>>> master
 
   var difficultyLevelID = req.body.difficultyLevel;
   var questionStatement = req.body.questionStatement;
@@ -66,13 +75,17 @@ app.post('/addQuestion',function(req,res){
 
     console.log("1 row inserted.");
     //process.chdir("../");
-    var filePath = process.cwd()+'/view/'+'addQuestionSuccess.html'
+    var filePath = process.cwd()+'/views/'+'addQuestionSuccess.html'
     //console.log(filePath);
     res.sendFile(filePath);
     //res.sendFile('addQuestionSuccess.html', {root: __dirname });
 
   }
   });
+<<<<<<< HEAD
+}
+=======
 })
 
 module.exports = app
+>>>>>>> master

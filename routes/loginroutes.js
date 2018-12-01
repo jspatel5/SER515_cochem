@@ -6,7 +6,11 @@ var connection = mysql.createConnection({
 	host: "localhost",
 	user: "root",
 	password: "",
+<<<<<<< HEAD
+	database: "EulerProject" 
+=======
 	database: "EulerProject"
+>>>>>>> master
 });
 app.use(express.static(__dirname + '/'));
 
@@ -138,13 +142,25 @@ app.post('/login',function(req,res){
     if(results.length >0){
       if(results[0].password == password){
       	points = results[0].points;
+<<<<<<< HEAD
+       updatePointsQuery = "UPDATE user SET points = ? WHERE userName = ?"
+
+=======
        updatePointsQuery = "UPDATE users SET points = ? WHERE username = ?"
+>>>>>>> master
 
 		  	connection.query(updatePointsQuery,[points+10,userName], function (err, result) {
 		  if (err) throw err;
 		    console.log(result.affectedRows + " record(s) updated");
 		  });
 
+<<<<<<< HEAD
+       res.send({
+          "code":200,
+          "success":"login sucessfull"
+          });
+      // send to user profile page
+=======
       if(results[0].userType == "Admin"){
         var filePath = process.cwd()+'/view/'+'adminProfile.ejs';
                res.render(filePath, {title: "Login Page"});
@@ -157,6 +173,7 @@ app.post('/login',function(req,res){
 				});
         // var filePath = process.cwd()+'/view/'+'UserProfile.ejs';
                // res.render(filePath, {});
+>>>>>>> master
       }
 
       //  res.send({
@@ -222,6 +239,10 @@ app.post('/forgotPassword',function(req,res){
   }
   });
 
+<<<<<<< HEAD
+}
+=======
 })
 
 module.exports = app
+>>>>>>> master

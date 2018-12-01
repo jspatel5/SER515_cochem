@@ -1,4 +1,21 @@
 
+<<<<<<< HEAD
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+<table width='80%' border=0>
+
+	<tr style='text-align:left; background-color:#CCC'>
+    <th>Questions</th>
+		<th>difficulty Level</th>
+		<th>Status</th>
+		<!-- <th>Age</th>
+		<th>Email</th>
+		<th>Action</th> -->
+=======
 <% include ../headmain.ejs %>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -15,6 +32,7 @@
 		<th>Solution</th>
 
 
+>>>>>>> master
 	</tr>
 
 	<% if (data) { %>
@@ -27,15 +45,26 @@
 				<td>
 					 ✅
 					</td>
+<<<<<<< HEAD
+=======
 					<td>
 						<div style="float:left">
 
 						</div>
 					</td>
+>>>>>>> master
 			<%}else {%>
 				<td>
 					❌
 				</td>
+<<<<<<< HEAD
+				<%}
+			%>
+			<td>
+				<div style="float:left">
+					<a href='/questions/problemStatement/<%= question.questionID %>'>View</a> &nbsp;
+				</div>
+=======
 				<td>
 					<div style="float:left">
 						<a href='/questions/problemStatement/<%= question.questionID %>'>Solve Question</a> &nbsp;
@@ -51,6 +80,7 @@
 				</div>
 
 				</form>
+>>>>>>> master
 			</td>
 
 		</tr>
