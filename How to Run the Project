@@ -1,0 +1,13 @@
+clone this repository in your local machine.
+
+Go to terminal
+
+navigate to directory where git repository is cloned.
+
+Run below command
+
+node server.js
+
+now go to any web browser and hit localhost:8080/
+
+This will navigate you to home page of web portal.
