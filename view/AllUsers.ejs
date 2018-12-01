@@ -18,7 +18,11 @@
                 <tbody>
                     <% users.forEach((user, index) => { %>
                         <tr>
+<<<<<<< HEAD
                             <th scope="row"><%= user.userId %></th>
+=======
+                            <th scope="row"><%= user.userID %></th>
+>>>>>>> master
                             <td><%= user.username %></td>
                             <td><%= user.password %></td>
                             <td><%= user.firstName %></td>
@@ -27,7 +31,11 @@
                             <td><%= user.userType %></td>
                             <td><%= user.points %></td>
                             <td>
+<<<<<<< HEAD
                                 <a href="/edit/<%=user.userId %>" target="_blank" rel="noopener" class="btn btn-sm btn-success">View Profile</a>
+=======
+                                <a href="../user/edit/<%=user.userID %>" target="_blank" rel="noopener" class="btn btn-sm btn-success">View Profile</a>
+>>>>>>> master
                             </td>
                         </tr>
                     <% }) %>

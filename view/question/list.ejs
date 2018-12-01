@@ -1,0 +1,52 @@
+<<<<<<< HEAD
+
+=======
+<% include ../headmain.ejs %>
+>>>>>>> master
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+<<<<<<< HEAD
+<table width='80%' border=0>
+
+	<tr style='text-align:left; background-color:#CCC'>
+		<th>difficulty Level</th>
+		<!-- <th>Age</th>
+		<th>Email</th>
+		<th>Action</th> -->
+=======
+<table class = 'table table-striped'>
+
+	<tr style='text-align:left; background-color:#CCC'>
+		<th>Difficulty Level</th>
+		<th />
+
+>>>>>>> master
+	</tr>
+
+	<% if (data) { %>
+	<% data.forEach(function(question){ %>
+		<tr>
+			<td><%= question.difficultyLevel %></td>
+			<!-- <td><%= question.difficultyLevelID %></td>
+			<td><%= question.email %></td> -->
+			<td>
+				<div style="float:left">
+					<a href='/questions/questionlist/<%= question.difficultyLevelID %>'>View</a> &nbsp;
+<<<<<<< HEAD
+					<!-- <form method="post" action="/users/delete/<%= question.difficultyLevelID %>" style="float:right">
+						<input type="submit" name="delete" value='Delete' onClick="return confirm('Are you sure you want to delete?')" /> -->
+						<!-- <input type="hidden" name="_method" value="DELETE" />
+					</form> --> -->
+=======
+
+>>>>>>> master
+				</div>
+			</td>
+		</tr>
+	<% }) %>
+	<% } %>
+
+</table>
