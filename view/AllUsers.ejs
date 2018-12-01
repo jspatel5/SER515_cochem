@@ -1,0 +1,50 @@
+<% include headmain.ejs %>
+    <div class="table-wrapper">
+        <% if (users.length > 0) {%>
+            <table class="table table-hovered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">userId</th>
+                        <th scope="col">username</th>
+                        <th scope="col">password</th>
+                        <th scope="col">firstName</th>
+                        <th scope="col">lastName</th>
+                        <th scope="col">email</th>
+                        <th scope="col">userType</th>
+                        <th scope="col">points</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% users.forEach((user, index) => { %>
+                        <tr>
+<<<<<<< HEAD
+                            <th scope="row"><%= user.userId %></th>
+=======
+                            <th scope="row"><%= user.userID %></th>
+>>>>>>> master
+                            <td><%= user.username %></td>
+                            <td><%= user.password %></td>
+                            <td><%= user.firstName %></td>
+                            <td><%= user.lastName %></td>
+                            <td><%= user.email %></td>
+                            <td><%= user.userType %></td>
+                            <td><%= user.points %></td>
+                            <td>
+<<<<<<< HEAD
+                                <a href="/edit/<%=user.userId %>" target="_blank" rel="noopener" class="btn btn-sm btn-success">View Profile</a>
+=======
+                                <a href="../user/edit/<%=user.userID %>" target="_blank" rel="noopener" class="btn btn-sm btn-success">View Profile</a>
+>>>>>>> master
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        <% } else { %>
+            <p class="text-center">No users found. </p>
+        <% } %>
+    </div>
+</div>
+</body>
+</html>

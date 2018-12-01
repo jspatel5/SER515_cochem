@@ -1,3 +1,66 @@
+<<<<<<< HEAD
+const express = require('express');
+const fileUpload = require('express-fileupload');
+const bodyParser = require('body-parser');
+const mysql = require('mysql');
+const path = require('path');
+const app = express();
+
+const {getHomePage} = require('./routes/homepageOne');
+const {editProfile} = require('./routes/OneProfile');
+const {goBack} = require('./routes/back');
+const {leaderBoard} = require('./routes/display');
+const {singleProfile} = require('./routes/UserProfile');
+//const {editProfile} = require('./routes/OneProfile');
+
+const port = 8080;
+
+// create connection to database
+// the mysql.createConnection function takes in a configuration object which contains host, user, password and the database name.
+const db = mysql.createConnection ({
+    host: 'localhost',
+    user: 'root',
+    password: 'Munnym22_7',
+    database: 'projecteuler'
+});
+
+// connect to database
+db.connect((err) => {
+   if (err) {
+        throw err;
+    }
+    console.log('Connected to database');
+});
+global.db = db;
+
+// configure middleware
+app.set('port', process.env.port || port); // set express to use this port
+app.set('views', __dirname + '/view'); // set express to look in this folder to render our view
+app.set('view engine', 'ejs'); // configure template engine
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json()); // parse form data client
+app.use(express.static(path.join(__dirname, 'public'))); // configure express to use public folder
+app.use(fileUpload()); // configure fileupload
+
+
+// routes for the app
+
+app.get('/', getHomePage);
+app.get('/editprofile', editProfile);
+app.get('/back', goBack);
+app.get('/leaderboard', leaderBoard)
+app.get('/edit/:userId',singleProfile)
+app.get('/return', getHomePage);
+
+//app.get('/edit/:id', editUserPage);
+//app.post('/edit/:id', editUser);
+
+
+// set the app to listen on the port
+app.listen(port, () => {
+    console.log(`Server running on port: ${port}`);
+});
+=======
 var express    = require("express");
 var login = require('./routes/loginroutes');
 var solution = require('./routes/usersolroutes');
@@ -185,3 +248,4 @@ router.post('/requestSolution',requestSol.requestSolution);
 
 app.use('/api', router);
 app.listen(8080);
+>>>>>>> master
