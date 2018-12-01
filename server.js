@@ -5,6 +5,20 @@ var addQue = require('./routes/addQuestions');
 var index = require('./routes/index')
 var questions = require('./routes/questions')
 var progress = require('./routes/progress')
+<<<<<<< HEAD
+=======
+var solution = require('./routes/usersolroutes');
+var getHomePage = require('./routes/mainpage');
+var aboutPage = require('./routes/aboutlink');
+
+
+var back = require('./routes/back');
+var display = require('./routes/display');
+var homepageOne = require('./routes/homepageOne')
+var OneProfile = require('./routes/OneProfile')
+var UserProfile = require('./routes/UserProfile')
+
+>>>>>>> master
 var requestSol = require('./routes/checkPointsForSolution')
 var bodyParser = require('body-parser');
 var path = require("path");
@@ -25,10 +39,30 @@ app.use(function(req, res, next) {
     next();
 });
 var router = express.Router();
+app.set('views', __dirname + '/view');
+app.set('view engine', 'ejs');
 
+<<<<<<< HEAD
 app.set('view engine', 'ejs');
 
 app.use('/', index);
 app.use('/questions', questions);
+=======
+// app.use('/', index);
+app.use('/questions', questions);
+app.use('/login',login);
+app.use('/addQue',addQue);
+
+app.use('/solution',solution);
+app.use('/back', back);
+app.use('/leaderboard', display);
+app.use('/home',homepageOne);
+app.use('/editprofile', OneProfile);
+app.use('/user', UserProfile);
+
+app.use('/', getHomePage);
+app.use('/about', aboutPage);
+app.use('/exit', getHomePage);
+>>>>>>> master
 
 app.listen(8080);

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+         <head >
+        <!-- Required meta tags -->
+        <% include headmain.ejs %>
+         <meta charset="utf-8">
+         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+         <title><%= title %></title>
+         </head>
+         <body>
+
+         <form action="/addQue/addQuestion"  method="post" name="addForm">
+         <div class="form-group" style="margin-left:150px; margin-right:150px; margin-top:100px">
+         <label for="difficultyLevel">Select difficulty level</label>
+
+         <select class="form-control" id="difficultyLevel" name="difficultyLevel">
+
+         <% if (difficultyLevel_map) { %>
+			<% difficultyLevel_map.forEach(function(dl){ %>
+				<option value=<%=dl.difficultyLevelID %>> <%=dl.difficultyLevel%> </option>
+			<% }) %>
+		<% } %>
+
+         </select>
+         </div>
+         <div class="form-group" style="margin-left:150px; margin-right:150px">
+         <label for="questionStatement">Question statement</label>
+        <input type="text" class="form-control" id="questionStatement" name="questionStatement" aria-describedby="questionStatementHelp" placeholder="Enter Question">
+         </div>
+         <div class="form-group" style="margin-left:150px; margin-right:150px">
+         <label for="answer">Answer</label>
+         <input type="text" class="form-control" id="answer" name="answer" placeholder="answer">
+         </div>
+         <div class="form-group" style="margin-left:150px; margin-right:150px">
+         <label for="hint">Hint</label>
+         <input type="text" class="form-control" id="hint" name="hint" placeholder="hint">
+         </div>
+         <button type="submit" class="btn btn-primary" style="margin-left:150px; margin-right:150px">Submit</button>
+         </form>
+         </body>
+         </html>
