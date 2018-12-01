@@ -1,3 +1,15 @@
+<<<<<<< HEAD
+const fs = require('fs');
+module.exports = {
+editProfile: (req, res) => {
+        let userId = req.params.userId;
+        let query = "SELECT * FROM `projecteuler` WHERE userId = '1' ";
+        db.query(query, (err, result) => {
+            if (err) {
+                return res.status(500).send(err);
+            }
+            res.render('OneProfile.ejs', {
+=======
 var express    = require("express");
 var app = express();
 var mysql = require('mysql');
@@ -29,11 +41,17 @@ app.get('/', function(req, res, next) {
             }
             var filePath = process.cwd()+'/view/'+'OneProfile.ejs'
     										 res.render(filePath, {
+>>>>>>> master
                 title: "Display User"
                 ,user: result[0]
                 ,message: ''
             });
         });
+<<<<<<< HEAD
+    }
+};
+=======
     })
 // };
 module.exports = app
+>>>>>>> master

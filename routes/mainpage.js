@@ -1,3 +1,16 @@
+<<<<<<< HEAD
+module.exports = {
+    getHomePage: (req, res) => {
+             
+            res.render('header.ejs', {
+                title: "Welcome to Euler Project | Edit User Profile"
+            });
+        },
+
+    };
+
+
+=======
 var express    = require("express");
 var app = express();
 var router = express.Router();
@@ -11,3 +24,4 @@ app.get('/', function(req, res) {
         })
 
 module.exports=app
+>>>>>>> master
